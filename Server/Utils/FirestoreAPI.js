@@ -25,7 +25,7 @@ let connectionRef = collection(firestore, "connections");
 export const postStatus = (object) => {
   addDoc(postsRef, object)
     .then(() => {
-      console.log("Post has been added successfully")
+      console.log("Post has been added successfully");
     })
     .catch((err) => {
       console.log(err);
