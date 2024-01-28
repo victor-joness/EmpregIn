@@ -1,3 +1,51 @@
+@layer base {
+  :root {
+    --card: 0 0% 99%;
+    --ring: 198 33% 75%;
+    --input: 220 13% 91%;
+    --muted: 198 9% 89%;
+    --accent: 198 12% 81%;
+    --border: 220 13% 91%;
+    --popover: 198 68% 100%;
+    --primary: 198 33% 75%;
+    --secondary: 198 5% 91%;
+    --background: 198 68% 100%;
+    --foreground: 198 73% 0%;
+    --destructive: 3 92% 40%;
+    --card-foreground: 0 0% 0%;
+    --muted-foreground: 198 13% 36%;
+    --accent-foreground: 198 12% 21%;
+    --popover-foreground: 198 73% 0%;
+    --primary-foreground: 198 33% 15%;
+    --secondary-foreground: 198 5% 31%;
+    --destructive-foreground: 0 78% 100%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --card: 198 44% 4%;
+    --ring: 198 33% 75%;
+    --input: 215 27.9% 16.9%;
+    --muted: 198 9% 11%;
+    --accent: 198 17% 28%;
+    --border: 215 27.9% 16.9%;
+    --popover: 198 44% 3%;
+    --primary: 198 33% 75%;
+    --secondary: 198 12% 18%;
+    --background: 198 42.5% 16.19%;
+    --foreground: 198 40% 97%;
+    --destructive: 3 92% 58%;
+    --card-foreground: 198 40% 98%;
+    --muted-foreground: 198 13% 64%;
+    --accent-foreground: 198 17% 88%;
+    --popover-foreground: 198 40% 97%;
+    --primary-foreground: 198 33% 15%;
+    --secondary-foreground: 198 12% 78%;
+    --destructive-foreground: 0 0% 100%;
+  }
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
