@@ -43,27 +43,27 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Mudar as variaveis globais para useContext;
 
 # 👷 Membros da Equipe:
-Victor Jones
-Samuel
-Laercio
-Miguel
-Carlos Eduardo
+Victor Jones                                                                            
+Samuel                                                                                              
+Laercio                                                                                                    
+Miguel                                                                                                                
+Carlos Eduardo                                                                                                                                
 
 # 👷 Tarefas Atribuídas:
-Victor Jones - FRONT/BACK
-- será responsável pelo desenvolvimento tanto do front-end quanto do back-end da aplicação.
+Victor Jones - BANCO - INTEGRAÇÃO
+- será responsável pelo gerenciamento e integração entre o front e o bank-end;
 
-Samuel - FRONT/BACK
-- também estará trabalhando tanto no front-end quanto no back-end do projeto.
+Samuel - FRONT - BANCO
+- estará trabalhando no front-end do projeto.
 
-Laercio - ALGORITMO
-- ficará encarregado de estudar os algoritmos necessários para o funcionamento adequado da aplicação.
+Laercio - DESIGN - FRONT
+- assumirá o papel de criar o figma, logo, e criar componentes que vão ser usados no front-end;
 
-Miguel - PROTÓTIPO/DESIGN
-- assumirá o papel de criar os protótipos e o design da aplicação. Sua atenção aos detalhes e habilidades de design ajudarão a garantir uma interface de usuário atraente e intuitiva.
+Miguel - BACK-END - API
+- assumirá o papel de criar o backend do projeto.
 
-Carlos Eduardo - BANCO
-- estará focado na gestão do banco de dados. Ele será responsável por projetar o esquema do banco de dados, implementar a integração com o back-end e garantir a integridade e segurança dos dados.
+Carlos Eduardo - BACK-END - ALGORITMO
+- assumirá o papel de criar o backend do projeto + ficará encarregado de estudar os algoritmos necessários para o funcionamento adequado da aplicação.
 
 # 👷 Fluxo de Trabalho:
 Cada membro da equipe trabalhará em suas respectivas tarefas atribuídas, mas, quando finalizarem, poderão ajudar os demais.
