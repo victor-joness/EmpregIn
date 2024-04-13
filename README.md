@@ -8,14 +8,14 @@ um usuário está de outro membro do sistema de empregos. Por meio de grafos é 
 outro algoritmo de busca chamado Breadth-first search (BFS), em português Pesquisa em largura,
 que responde exatamente esse tipo de pergunta. Perceba que existem vários outros caminhos entre
 nós. Mas eu preciso saber o menor deles, ou o caminho mínimo.O grupo praticará o desenvolvimento
-de interface com boa usabilidade e prototipação de software.
+de interface com boa usabilidade e prototipação de software.                                                                  
 
 ## 🚀 Tecnologias
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-> Front-End: React, CSS, HTML, JavaScript e algumas Bibliotecas;                                      
-> Back-End: C#, .NET;
-> Banco de dados: Firebase;                                                       
+> Front-End: React, CSS, HTML, JavaScript e algumas Bibliotecas;                                                                                                
+> Back-End: C#, .NET;                                                                          
+> Banco de dados: Firebase;                                                                                                                           
 
 ## 📌 Habilidades
 
@@ -32,17 +32,18 @@ Nesse projeto, fui capaz de:
 - 3 Logout;❌                             
 - 4 Edição de conta; ❌                            
 - 5 Remoção de conta;❌                                      
-- 6 Buscar Usuario; ❌
-- 7 Listagem de Usuario; ❌
+- 6 Buscar Usuario; ❌                                                                                
+- 7 Listagem de Usuario; ❌                                                                                          
   
 ## 📝 Fotos do projeto                                                                         
   -> https://www.figma.com/file/rjaRzpBAfOXsg62sgJiuFb/LinkedIn-Redesign-UI-Kit-(Community)?type=design&mode=design&t=w6hY4gAulEWWyifC-0      
 
-## 📝 Padrão arquitetural de desenvolvimento web
-  -> Escolhemos o padrão CQRS, Caso queira conhecer:
-    - https://medium.com/@marcelomg21/cqrs-command-query-responsibility-segregation-em-uma-arquitetura-de-micro-servi%C3%A7os-71dcb687a8a9
-    - https://www.youtube.com/watch?v=cw0oVKCK4iU
-  -> Foto do Padrão: 
+## 📝 Padrão arquitetural de desenvolvimento web                                                                                                    
+  -> Escolhemos o padrão CQRS, Caso queira conhecer:                                                                                      
+    - https://medium.com/@marcelomg21/cqrs-command-query-responsibility-segregation-em-uma-arquitetura-de-micro-servi%C3%A7os-71dcb687a8a9                                                                  
+    - https://www.youtube.com/watch?v=cw0oVKCK4iU                                                                                          
+  -> Foto do Padrão:                                                                          
+    - https://github.com/victor-joness/EmpregIn/blob/main/Padr%C3%A3o%20arquitetural.png                                                                              
 
 ## 📝 Ajustes e melhorias
 
