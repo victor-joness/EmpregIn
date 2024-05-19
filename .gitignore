@@ -1,9 +1,7 @@
 
 *.v2
 *.vsidx
-API/EmpregInAPI/.vs/EmpregInAPI/v17/.suo
 *.bin
 *.cache
-API/EmpregInAPI/.vs/EmpregInAPI/v17/DocumentLayout.json
-API/EmpregInAPI/obj
-API/EmpregInAPI/bin
+/API/EmpregIn/obj
+/API/EmpregIn/bin
