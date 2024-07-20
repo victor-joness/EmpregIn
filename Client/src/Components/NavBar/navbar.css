@@ -1,0 +1,17 @@
+/* Realizando o Reset nas Propriedades CSS dos Elementos HTML */
+
+:root {
+    font-size: 62.5%;
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilização dos Elementos */
+
+.header {
+    position: fixed;
+    top: 0;
+}
