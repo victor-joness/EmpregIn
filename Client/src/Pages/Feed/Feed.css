@@ -1,0 +1,10 @@
+.feed{
+    display: flex;
+    font-size: 4rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+
+    height: 100vh;
+}

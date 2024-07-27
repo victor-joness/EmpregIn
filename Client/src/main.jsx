@@ -2,19 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import store from "./App-config-teste/store.js";
 
-import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-
-import authReducer, { loadUser } from './Features/authSlice.js';
-
-const store = configureStore({
-  reducer: {
-    auth: authReducer,
-  }
-});
-
-store.dispatch(loadUser(null));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
