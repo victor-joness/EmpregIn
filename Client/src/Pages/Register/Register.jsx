@@ -59,7 +59,11 @@ const Register = () => {
   });
 
   //só pode uma div, então faz tudo dentro dessa ou <div>
-  return <></>;
+  return (
+    <div className="register-container">
+      <h1>REGISTER</h1>
+    </div>
+  );
 };
 
 export default Register;
