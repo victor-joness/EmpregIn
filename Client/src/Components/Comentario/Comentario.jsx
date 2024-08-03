@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../../firebase";
 import "./Comentario.css";
 
 const Comentario = (props) => {
