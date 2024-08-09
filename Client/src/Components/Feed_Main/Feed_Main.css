@@ -1,0 +1,292 @@
+.container_Feed_Main {
+  grid-area: main;
+}
+
+.common-card {
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 8px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  position: relative;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+}
+
+.uploading-box {
+  text-align: start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  color: rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+.uploading-box > img {
+  width: fit-content;
+}
+.uploading-box .progress {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 400px;
+}
+.uploading-box .progress .bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+.uploading-box .progress .bar span {
+  position: absolute;
+  height: 100%;
+  background-color: #576779;
+}
+@media (max-width: 768px) {
+  .uploading-box .progress {
+    width: 230px;
+  }
+}
+
+.share-box {
+  display: flex;
+  flex-direction: column;
+  color: #958b7b;
+  margin: 0 0 8px;
+  background-color: white;
+}
+.share-box div button {
+  color: rgba(0, 0, 0, 0.6);
+  outline: none;
+  border: none;
+  background-color: transparent;
+  min-height: 48px;
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+  padding: 8px;
+  cursor: pointer;
+}
+.share-box div button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.share-box div:first-child {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 0 16px;
+}
+.share-box div:first-child img {
+  width: 48px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.share-box div:first-child button {
+  margin: 4px 0;
+  flex-grow: 1;
+  padding-left: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 35px;
+}
+.share-box div:last-child {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-bottom: 4px;
+}
+.share-box div:last-child button {
+  border-radius: 5px;
+}
+.share-box div:last-child button img {
+  margin: 0 10px 0 -2px;
+}
+
+.article {
+  padding: 0;
+  margin: 0 0 8px;
+  overflow: visible;
+}
+
+.actor {
+  padding-right: 40px;
+  padding: 12px 16px 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  align-items: flex-start;
+  position: relative;
+}
+.actor a {
+  overflow: hidden;
+  display: flex;
+}
+.actor a img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.actor a .info {
+  text-align: start;
+}
+.actor a .info h6 {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 600;
+}
+.actor a .info span {
+  font-size: 12px;
+  display: block;
+  color: rgba(0, 0, 0, 0.6);
+}
+.actor button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50px;
+}
+.actor button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.edit-model {
+  animation: fadeIn 0.5s;
+  text-align: start;
+  position: absolute;
+  right: 5px;
+  top: 55px;
+  background-color: white;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 6px 9px rgb(0 0 0 / 20%);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 99;
+  min-width: 250px;
+}
+.edit-model li {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.edit-model li:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.edit-model li img {
+  width: 18px;
+  height: 20px;
+}
+.edit-model li h6 {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 600;
+}
+.edit-model li .info {
+  text-align: start;
+}
+.edit-model li .info span {
+  font-size: 12px;
+  display: block;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.description {
+  font-size: 14px;
+  text-align: start;
+  padding: 0 16px;
+  color: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.shared-img {
+  width: 100%;
+  max-height: 500px;
+  position: relative;
+  background-color: #f9fafb;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.shared-img img {
+  max-height: 500px;
+  max-width: 100%;
+}
+
+.social-contents {
+  padding: 0px 16px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  min-height: 40px;
+  overflow: hidden;
+}
+
+.social-contents button {
+  outline: 0px;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 12px 24px;
+  background-color: transparent;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px;
+  border: 0px;
+  border-radius: 5px;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.social-actions {
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 40px;
+  overflow: hidden;
+}
+.social-actions button {
+  outline: 0;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 12px 24px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px;
+  border: 0;
+  border-radius: 5px;
+  transition: 0.2s;
+  font-weight: 600;
+}
+.social-actions button .liked {
+  display: none;
+}
+.social-actions button .unLiked {
+  display: inline-block;
+}
+.social-actions button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.social-actions button.active {
+  color: #0a66c2;
+}
+.social-actions button.active .liked {
+  display: inline-block;
+}
+.social-actions button.active .unLiked {
+  display: none;
+}
+@media (max-width: 767px) {
+  .social-actions button {
+    flex-direction: column;
+    padding: 10px;
+    margin: 0;
+    font-size: 12px;
+  }
+}

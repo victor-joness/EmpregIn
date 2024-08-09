@@ -1,0 +1,114 @@
+.container_Feed_Recomendacao {
+  grid-area: rightside;
+}
+
+.follow-card {
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+  border: none;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+  padding: 12px;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16.5px;
+  width: 100%;
+}
+
+.title h2 {
+  color: #333;
+  font-weight: 700;
+}
+
+.feed-list {
+  margin-top: 16px;
+}
+
+.feed-list li {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  position: relative;
+  font-size: 14px;
+}
+
+.feed-list li > div {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 4px;
+}
+
+.feed-list button {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.6);
+  border: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+  padding: 16px;
+  align-items: center;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-weight: 600;
+  display: inline-flex;
+  justify-content: center;
+  max-height: 32px;
+  max-width: 480px;
+  text-align: center;
+  outline: none;
+  font-size: 16px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.feed-list button img {
+  margin-right: 5px;
+}
+
+.feed-list button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.avatar {
+  background-image: url("https://static-exp1.licdn.com/sc/h/1b4vl1r54ijmrmcyxzoidwmxs");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  margin-right: 8px;
+}
+
+.recommendation {
+  color: #0a66c2;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.banner-card {
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+  border: none;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+  padding: 12px;
+  position: sticky;
+  top: 75px;
+}
+
+.banner-card img {
+  width: 100%;
+  height: 100%;
+}

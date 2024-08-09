@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Register.css";
+import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Features/authSlice";
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -18,17 +17,17 @@ const Register = () => {
     }
   }, [auth.id, navigate]);
 
-  const [user, setUser] = useState({
+  /* const [user, setUser] = useState({
     userID: "",
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  }); */
 
-  const handleClickRegister = async () => {
+  const handleClickLogin = async () => {
     try {
-      dispatch(registerUser(user));
+      dispatch(loginUser(user));
       //so ser o register for feito
       navigate("/home");
     } catch (err) {
@@ -37,7 +36,7 @@ const Register = () => {
   };
 
   //fazer as validações no front, parar não sobrecarrecar o back, mas o ideal é fazer no backend
-  const validationRegister = yup.object().shape({
+  const validationLogin = yup.object().shape({
     name: yup
       .string()
       .min(3, "Seu nome deve ter pelo menos 3 caracteres")
@@ -58,12 +57,14 @@ const Register = () => {
       }),
   });
 
+  const user = useSelector((state) => state.user.value);
+
   //só pode uma div, então faz tudo dentro dessa ou <div>
   return (
-    <div className="register-container">
-      <h1>REGISTER</h1>
+    <div className="login-container">
+      <h1>LOGIN</h1>
     </div>
   );
 };
 
-export default Register;
+export default Login;

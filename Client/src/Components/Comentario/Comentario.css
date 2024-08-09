@@ -1,0 +1,64 @@
+.container {
+  padding: 5px 16px 8px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.input img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment-container {
+  display: flex;
+  padding-top: 15px;
+}
+
+.comment-container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.content {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  text-align: start;
+}
+
+.info h6 {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 600;
+}
+
+.info span {
+  font-size: 12px;
+  display: block;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.header img {
+  width: 1rem;
+  height: fit-content;
+}
+
+.content p {
+  padding-top: 10px;
+  text-align: start;
+}
