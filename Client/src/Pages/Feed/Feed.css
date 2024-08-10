@@ -23,6 +23,8 @@
   row-gap: 25px;
   max-width: 1128px;
   margin: 20px auto;
+  padding-bottom: 10rem;
+  margin-bottom: 0px;
 }
 
 @media (max-width: 768px) {
