@@ -12,21 +12,19 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage } from "../../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db } from "../../../firebase";
 import ReactPlayer from "react-player";
 import fuzzyTime from "fuzzy-time";
 import "./Feed_Main.css";
 
-/* import PostModel from "./PostModel"; */
+import Post_Modal from "../Post_Modal/Post_Modal";
 
 const Feed_Main = () => {
   const [user, setUser] = useState(useSelector((state) => state.user.value));
   const [posts, setPosts] = useState([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [percent, setPercent] = useState(0);
+
 
   useEffect(() => {
     const auth = getAuth();
@@ -42,7 +40,6 @@ const Feed_Main = () => {
 
         const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
           const postsData = [];
-          console.log(querySnapshot);
           querySnapshot.forEach((doc) => {
             postsData.push({ id: doc.id, ...doc.data() });
           });
@@ -61,46 +58,6 @@ const Feed_Main = () => {
       unsubscribeAuth();
     };
   }, []);
-
-  const handleUpload = (file, title) => {
-    if (!file) return;
-    const storageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setPercent(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-      async () => {
-        await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          addDoc(collection(db, "posts"), {
-            user: {
-              name: user.name,
-              email: user.email,
-              photo: user.photo,
-            },
-            title,
-            video: url.includes("video") ? url : null,
-            image: !url.includes("video") ? url : null,
-            timestamp: Timestamp.now(),
-          }).then(() => {
-            setPercent(0);
-            setMessage("Upload feito!");
-            setTimeout(() => {
-              setMessage("");
-            }, 3000);
-          });
-        });
-      }
-    );
-  };
 
   const handleDelete = useCallback(
     async (id) => {
@@ -147,18 +104,6 @@ const Feed_Main = () => {
         </div>
       </div>
 
-      {loading && (
-        <div className="uploading-box">
-          <p>{percent === 100 ? message : `${percent}%`}</p>
-          <div className="progress">
-            <img src="/Images/loading-icon.svg" alt="loading" />
-            <div className="bar">
-              <span style={{ width: `${percent}%` }}></span>
-            </div>
-          </div>
-        </div>
-      )}
-
       {posts.length > 0 ? (
         <div>
           {posts.map((post) => (
@@ -186,8 +131,8 @@ const Feed_Main = () => {
               </div>
 
               <div className="shared-img">
-                {post.image && <img src={post.image} alt="shared" />}
-                {post.video && <ReactPlayer url={post.video} width="100%" />}
+                {post.sharedImage && <img src={post.sharedImage} alt="Imagem compartilhada" />}
+                {post.sharedVideo && <ReactPlayer url={post.sharedVideo} width="100%" />}
               </div>
 
               <div className="social-contents">
@@ -218,14 +163,13 @@ const Feed_Main = () => {
         <p>Sem Posts disponível</p>
       )}
 
-      {/* {isOpenModel && (
-        <PostModel
+      {isOpenModel && (
+        <Post_Modal
           isOpenModel={isOpenModel}
           setIsOpenModel={setIsOpenModel}
-          handleUpload={handleUpload}
           setLoading={setLoading}
         />
-      )} */}
+      )}
     </div>
   );
 };
