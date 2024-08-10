@@ -22,7 +22,7 @@ const Comentario = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container-comentario">
       <div className="input">
         <img src={props.photo} alt="user" />
         <InputEmoji
