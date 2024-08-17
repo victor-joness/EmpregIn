@@ -273,15 +273,64 @@
 .social-actions button:hover {
   background-color: rgba(0, 0, 0, 0.08);
 }
-.social-actions button.active {
+.social-actions button.active span{
   color: #0a66c2;
 }
+
 .social-actions button.active .liked {
   display: inline-block;
 }
+
 .social-actions button.active .unLiked {
   display: none;
 }
+
+.social-actions {
+  display: flex;
+  justify-content: space-around;
+  border-top: .1rem solid rgba(0, 0, 0, 0.08);
+}
+
+.social-actions button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.social-actions button img {
+  margin-right: 8px;
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: gray;
+} 
+
+.social-actions button span {
+  font-size: 14px;
+  color: #555;
+}
+
+.social-actions button:hover span {
+  color: #000;
+}
+
+.SocialContents{
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem; 
+}
+
 @media (max-width: 767px) {
   .social-actions button {
     flex-direction: column;

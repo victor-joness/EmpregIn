@@ -1,0 +1,228 @@
+.container-post-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.404);
+  animation: fadeIn 0.3s;
+}
+
+.content-post-modal {
+  max-width: 552px;
+  max-height: 90%;
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+  top: 32px;
+  margin: 0 auto;
+  animation: up 0.5s ease-out;
+}
+
+.header-post-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.header-post-modal h2 {
+  font-weight: 600;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.header-post-modal button {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.header-post-modal button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.shared-content-post-modal {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: transparent;
+  padding: 8px 20px;
+}
+
+.user-info-post-modal {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.user-info-post-modal img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.user-info-post-modal span {
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.description-post-modal {
+  padding: 12px 0;
+}
+
+.description-post-modal textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.uploads-post-modal {
+  text-align: center;
+  overflow-y: scroll;
+  max-height: 200px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.uploads-post-modal img:first-child {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 24px;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 100;
+  transition: 0.2s;
+}
+
+.uploads-post-modal img:first-child:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.uploads-post-modal img:last-child {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 98%;
+}
+
+.actions-post-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions-post-modal button {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions-post-modal button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.actions-post-modal button:disabled {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+}
+
+.editor-post-modal {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: -6px;
+}
+
+.editor-post-modal .add-buttons-post-modal button {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.editor-post-modal .add-buttons-post-modal button:disabled {
+  filter: contrast(0);
+  background-color: transparent;
+}
+
+.editor-post-modal .share-comment-post-modal {
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  padding-left: 5px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.editor-post-modal .share-comment-post-modal button {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  color: #666666;
+  font-weight: 600;
+  padding: 8px 14px;
+}
+
+.editor-post-modal .share-comment-post-modal button img {
+  width: 18px;
+  margin-right: 4px;
+}
+
+.editor-post-modal .share-comment-post-modal button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.post-button-post-modal {
+  min-width: 60px;
+  padding: 0 16px;
+  min-height: 32px;
+  border-radius: 24px;
+  background-color: #0073b1;
+  color: white;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.post-button-post-modal:disabled {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.post-button-post-modal:not(:disabled):hover {
+  background-color: #006097;
+}
+
+@keyframes up {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -37,7 +37,7 @@ const Home = () => {
         </div>
       </nav>
 
-      <section>
+      <section className="section-main">
         <div className="hero">
           <h1>Welcome to your professional community</h1>
           <img src="/Images/hero.svg" alt="hero" />

@@ -50,7 +50,7 @@ nav > a {
   box-shadow: inset 0 0 0 2px #0a66c2;
 }
 
-section {
+.section-main {
   position: relative;
   display: flex;
   align-content: start;
@@ -67,7 +67,7 @@ section {
 }
 
 @media (max-width: 767px) {
-  section {
+  .section-main {
     min-height: 0px;
     top: 0;
   }

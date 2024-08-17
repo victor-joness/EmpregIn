@@ -9,24 +9,20 @@ import {
   onSnapshot,
   orderBy,
   query,
-  Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage } from "../../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db } from "../../../firebase";
 import ReactPlayer from "react-player";
-import fuzzyTime from "fuzzy-time";
 import "./Feed_Main.css";
-
-/* import PostModel from "./PostModel"; */
+import Comentario from "../Comentario/Comentario";
+import Post_Modal from "../Post_Modal/Post_Modal";
 
 const Feed_Main = () => {
   const [user, setUser] = useState(useSelector((state) => state.user.value));
   const [posts, setPosts] = useState([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [percent, setPercent] = useState(0);
+  const [showComments, setShowComments] = useState([]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -42,9 +38,8 @@ const Feed_Main = () => {
 
         const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
           const postsData = [];
-          console.log(querySnapshot);
           querySnapshot.forEach((doc) => {
-            postsData.push({ id: doc.id, ...doc.data() });
+            postsData.push({ id: doc.id, id_document: doc.id, ...doc.data() });
           });
           setPosts(postsData);
         });
@@ -62,51 +57,30 @@ const Feed_Main = () => {
     };
   }, []);
 
-  const handleUpload = (file, title) => {
-    if (!file) return;
-    const storageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+  const fetchLikes = async (postDocumentId, likes) => {
+    const userLike = { name: user.name, email: user.email, photo: user.photo };
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setPercent(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-      async () => {
-        await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          addDoc(collection(db, "posts"), {
-            user: {
-              name: user.name,
-              email: user.email,
-              photo: user.photo,
-            },
-            title,
-            video: url.includes("video") ? url : null,
-            image: !url.includes("video") ? url : null,
-            timestamp: Timestamp.now(),
-          }).then(() => {
-            setPercent(0);
-            setMessage("Upload feito!");
-            setTimeout(() => {
-              setMessage("");
-            }, 3000);
-          });
-        });
-      }
-    );
+    try {
+      const updatedLikes = likes.some((l) => l.email === user.email)
+        ? likes.filter((l) => l.email !== user.email)
+        : [userLike, ...likes];
+
+      await updateDoc(doc(db, "posts", postDocumentId), { likes: updatedLikes });
+    } catch (error) {
+      console.error("Error updating likes:", error);
+    }
   };
 
   const handleDelete = useCallback(
     async (id) => {
       setLoading(true);
-      await deleteDoc(doc(db, "posts", id));
-      setLoading(false);
+      try {
+        await deleteDoc(doc(db, "posts", id));
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      } finally {
+        setLoading(false);
+      }
     },
     [setLoading]
   );
@@ -114,14 +88,34 @@ const Feed_Main = () => {
   const handleEdit = useCallback(
     async (id, title) => {
       setLoading(true);
-      await updateDoc(doc(db, "posts", id), { title });
-      setLoading(false);
+      try {
+        await updateDoc(doc(db, "posts", id), { title });
+      } catch (error) {
+        console.error("Error editing post:", error);
+      } finally {
+        setLoading(false);
+      }
     },
     [setLoading]
   );
 
+  const handleAddComment = async (postId, newComment) => {
+    try {
+      const postRef = doc(db, "posts", postId);
+      const postDoc = await getDoc(postRef);
+
+      if (postDoc.exists()) {
+        const postData = postDoc.data();
+        const updatedComments = [...(postData.comments || []), newComment];
+        await updateDoc(postRef, { comments: updatedComments });
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
   return (
-    <div className="container_Feed_Main ">
+    <div className="container_Feed_Main">
       <div className="share-box">
         <div>
           {user.photoURL && <img src={user.photoURL} alt="user" />}
@@ -147,18 +141,6 @@ const Feed_Main = () => {
         </div>
       </div>
 
-      {loading && (
-        <div className="uploading-box">
-          <p>{percent === 100 ? message : `${percent}%`}</p>
-          <div className="progress">
-            <img src="/Images/loading-icon.svg" alt="loading" />
-            <div className="bar">
-              <span style={{ width: `${percent}%` }}></span>
-            </div>
-          </div>
-        </div>
-      )}
-
       {posts.length > 0 ? (
         <div>
           {posts.map((post) => (
@@ -170,9 +152,7 @@ const Feed_Main = () => {
                     <h6>{post.user.name}</h6>
                     <span>{post.user.email}</span>
                     <span>
-                      {
-                        new Date(post.timestamp.seconds * 1000).toLocaleString()
-                      }
+                      {new Date(post.timestamp.seconds * 1000).toLocaleString()}
                     </span>
                   </div>
                 </a>
@@ -186,31 +166,77 @@ const Feed_Main = () => {
               </div>
 
               <div className="shared-img">
-                {post.image && <img src={post.image} alt="shared" />}
-                {post.video && <ReactPlayer url={post.video} width="100%" />}
+                {post.sharedImage && (
+                  <img src={post.sharedImage} alt="Imagem compartilhada" />
+                )}
+                {post.sharedVideo && (
+                  <ReactPlayer url={post.sharedVideo} width="100%" />
+                )}
               </div>
 
-              <div className="social-contents">
-                <button>
-                  <img src="/Images/like.svg" alt="like" />
-                  <span>Curtir</span>
+              <div className="SocialContents">
+                <p>{post.likes ? post.likes.length : 0} Likes </p>
+                <p
+                  onClick={() => setShowComments((prev) =>
+                    prev.includes(post.id)
+                      ? prev.filter((id) => id !== post.id)
+                      : [...prev, post.id]
+                  )}
+                >
+                  {post.comments ? post.comments.length : 0} <a style={{ cursor: "pointer" }}>Comentários</a>
+                </p>
+              </div>
+
+              <div className="social-actions">
+                <button
+                  className={`like-button ${
+                    post.likes?.some((l) => l.email === user.email) ? "active" : ""
+                  }`}
+                  onClick={() => fetchLikes(post.id_document, post.likes || [])}
+                >
+                  <img
+                    className="like-icon"
+                    src={
+                      post.likes?.some((l) => l.email === user.email)
+                        ? "/Images/like-azul.svg"
+                        : "/Images/like.svg"
+                    }
+                    alt="like"
+                  />
+                  <span>Like</span>
                 </button>
 
-                <button>
+                <button
+                  className="comment-button"
+                  onClick={() => setShowComments((prev) =>
+                    prev.includes(post.id)
+                      ? prev.filter((id) => id !== post.id)
+                      : [...prev, post.id]
+                  )}
+                >
                   <img src="/Images/comment.svg" alt="comment" />
-                  <span>Comentar</span>
+                  <span>Comentário</span>
                 </button>
 
-                <button>
+                <button className="share-button">
                   <img src="/Images/share.svg" alt="share" />
                   <span>Compartilhar</span>
                 </button>
 
-                <button>
+                <button className="send-button">
                   <img src="/Images/send.svg" alt="send" />
-                  <span>Enviar</span>
+                  <span></span>
                 </button>
               </div>
+              {showComments.includes(post.id) && (
+                  <Comentario
+                    photo={user?.Img}
+                    comments={post.comments || []}
+                    user={user}
+                    postID={post.id}
+                    onAddComment={handleAddComment}
+                  />
+                )}
             </div>
           ))}
         </div>
@@ -218,14 +244,13 @@ const Feed_Main = () => {
         <p>Sem Posts disponível</p>
       )}
 
-      {/* {isOpenModel && (
-        <PostModel
+      {isOpenModel && (
+        <Post_Modal
           isOpenModel={isOpenModel}
           setIsOpenModel={setIsOpenModel}
-          handleUpload={handleUpload}
           setLoading={setLoading}
         />
-      )} */}
+      )}
     </div>
   );
 };

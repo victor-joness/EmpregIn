@@ -3,8 +3,6 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-/*________________________________________________________________________________*/
-
 const firebaseConfig = {
   apiKey: "AIzaSyD8-76TY7-fzU1q7u8cblDt5r5lFRp7Ecg",
   authDomain: "empregin-c82cb.firebaseapp.com",
@@ -21,5 +19,3 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const provider = new GoogleAuthProvider();
-
-/*________________________________________________________________________________*/
