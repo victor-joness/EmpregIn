@@ -10,10 +10,24 @@ import { FiBook } from "react-icons/fi";
 import { BiComment } from "react-icons/bi";
 import { MdArrowOutward } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { signOut } from "../../App-config-teste/user-slice";
 
 const NavBar = () => {
-	const user = useSelector((state) => state.user.value)
+	const user = useSelector((state) => state.user.value);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	function signOutUser() {
+		console.log("Clicou para Deslogar");
+		
+		dispatch(signOut());
+
+		navigate("/");
+	}
 
 	return (
 		<div className="header">
@@ -52,7 +66,7 @@ const NavBar = () => {
 				</div>
 			</div>
 			<div className="box_logout">
-				<button className="btn_logout" type="button">
+				<button className="btn_logout" type="button" onClick={signOutUser}>
 					<IoIosLogOut /> 
 					<span>Logout</span>
 				</button>

@@ -56,6 +56,13 @@
     gap: 0.5rem;
 }
 
+.box_icons_navigation ul li a:hover {
+    color: #0275B1;
+    padding-bottom: 1rem;
+    border-bottom: 0.2rem solid #0275B1;
+}
+
+
 .box_icons_navigation ul li a span {
     font-size: 1.1rem;
     font-weight: 700;
