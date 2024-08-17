@@ -38,8 +38,8 @@ const Comentario = (props) => {
       {props.comments.map((comment, id) => (
         <div className="comment-container" key={id}>
           <img src={comment?.photo} alt="user" />
-          <div className="content">
-            <div className="header">
+          <div className="content-comentario">
+            <div className="header-comentario">
               <div className="info">
                 <h6>{comment.name}</h6>
                 <span>{comment.email}</span>
