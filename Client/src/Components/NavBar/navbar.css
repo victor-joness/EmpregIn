@@ -16,6 +16,7 @@
     top: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 6.5rem;
     background-color: rgb(253, 251, 251);
@@ -57,9 +58,9 @@
 }
 
 .box_icons_navigation ul li a:hover {
-    color: #0275B1;
+    color: #40B189;
     padding-bottom: 1rem;
-    border-bottom: 0.2rem solid #0275B1;
+    border-bottom: 0.2rem solid #40B189;
 }
 
 
@@ -85,7 +86,7 @@
     border: none;
     outline: none;
     background-color: rgba(255, 255, 255, 0);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 }
 
 .box_account {
@@ -129,13 +130,6 @@
     text-transform: uppercase;
     cursor: pointer;
     font-size: 1.5rem;
-}
-
-.box_account .box_accounts_info .text_indication {
-    line-height: 2;
-    font-size: 1rem;
-    text-transform: uppercase;
-    color:#18181833;
 }
 
 .box_account .box_accounts_info .box_info_views {

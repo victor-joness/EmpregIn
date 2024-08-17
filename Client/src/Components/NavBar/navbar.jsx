@@ -37,10 +37,10 @@ const NavBar = () => {
 			<div className="box_icons_navigation">
 				<ul>
 					<li><a href="#"><FaRss /> <span>Feed</span></a></li>
-					<li><a href="#"><FiUsers /> <span>Network</span></a></li>
-					<li><a href="#"><BsSuitcaseLg /> <span>Jobs</span></a></li>
+					<li><a href="#"><FiUsers /> <span>Rede</span></a></li>
+					<li><a href="#"><BsSuitcaseLg /> <span>Conexões</span></a></li>
 					<li><a href="#"><BiComment /> <span>Chat</span></a></li>
-					<li><a href="#"><FiBook /> <span>Algoritm</span></a></li>
+					<li><a href="#"><FiBook /> <span>Algoritmo</span></a></li>
 				</ul>
 			</div>
 			<div className="box_search">
@@ -57,10 +57,9 @@ const NavBar = () => {
 				<div className="box_accounts_info">
 					<div className="box_info_name">
 						<h2 className="profile_name">{user && user.displayName}</h2> 
-						<span className="text_indication">you</span>
 					</div>
 					<div className="box_info_views">
-						<p className="views_today">367 views today</p>
+						<p className="views_today">367 Conexões</p>
 						<span className="new_followers">+32 <MdArrowOutward /></span>
 					</div>
 				</div>

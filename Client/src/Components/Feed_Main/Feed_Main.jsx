@@ -198,7 +198,7 @@ const Feed_Main = () => {
                     className="like-icon"
                     src={
                       post.likes?.some((l) => l.email === user.email)
-                        ? "/Images/like-azul.svg"
+                        ? "/Images/like-verde.svg"
                         : "/Images/like.svg"
                     }
                     alt="like"
