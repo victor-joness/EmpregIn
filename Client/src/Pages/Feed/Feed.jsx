@@ -17,8 +17,6 @@ const Feed = (props) => {
     window.location.href = "/";
   }
 
-  console.log(user);
-
   return (
     <div className="container">
       <NavBar />
