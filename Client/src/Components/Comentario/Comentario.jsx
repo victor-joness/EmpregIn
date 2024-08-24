@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import InputEmoji from "react-input-emoji";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc , Timestamp} from "firebase/firestore";
 import { db } from "../../../firebase";
 import "./Comentario.css";
 
 const Comentario = (props) => {
   const [text, setText] = useState("");
 
-  console.log(props)
-
   const sendComment = () => {
-    updateDoc(doc(db, "Articles", props.postID), {
+    console.log(text);
+    console.log(props);
+    updateDoc(doc(db, "posts", props.documentId), {
       comments: [
         {
           name: props.user.name,
           photo: props.user.photo,
           email: props.user.email,
           text,
+          date: Timestamp.now(),
         },
         ...props.comments,
       ],
@@ -42,7 +43,7 @@ const Comentario = (props) => {
             <div className="header-comentario">
               <div className="info">
                 <h6>{comment.name}</h6>
-                <span>{comment.email}</span>
+                <span>{new Date(comment.date.seconds * 1000).toLocaleString()}</span>
               </div>
               <img src="/Images/ellipsis.svg" alt="" />
             </div>
