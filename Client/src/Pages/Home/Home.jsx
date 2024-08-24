@@ -27,10 +27,10 @@ const Home = () => {
           ) : (
             <>
               <a href="/register" className="join">
-                Join now
+                Cadastre-se agora
               </a>
               <a href="/login" className="login">
-                Sign in
+                Entrar
               </a>
             </>
           )}

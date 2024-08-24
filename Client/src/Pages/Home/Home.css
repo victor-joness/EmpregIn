@@ -27,6 +27,7 @@ nav > a {
   border-radius: 4px;
   transition: 0.2s;
   font-weight: 600;
+  font-size: 1.6rem;
 }
 
 .join:hover {
@@ -43,6 +44,7 @@ nav > a {
   line-height: 40px;
   padding: 10px 24px;
   text-align: center;
+  font-size: 1.6rem;
 }
 
 .login:hover {
