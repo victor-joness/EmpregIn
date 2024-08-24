@@ -100,6 +100,7 @@ const Feed_Main = () => {
   );
 
   const handleAddComment = async (postId, newComment) => {
+    console.log(postId);
     try {
       const postRef = doc(db, "posts", postId);
       const postDoc = await getDoc(postRef);
@@ -235,6 +236,7 @@ const Feed_Main = () => {
                     user={user}
                     postID={post.id}
                     onAddComment={handleAddComment}
+                    documentId={post.id_document}
                   />
                 )}
             </div>
