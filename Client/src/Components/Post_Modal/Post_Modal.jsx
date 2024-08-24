@@ -53,7 +53,7 @@ const Post_Modal = (props) => {
         sharedVideo: video,
         description: text,
         comments: 0,
-        likes: 0,
+        likes: [],
       }).then(() => {
         toast.success("Publicação feita com sucesso!");
       });
