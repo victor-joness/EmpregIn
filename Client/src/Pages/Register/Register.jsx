@@ -61,7 +61,47 @@ const Register = () => {
   //só pode uma div, então faz tudo dentro dessa ou <div>
   return (
     <div className="register-container">
-      <h1>REGISTER</h1>
+        <div className="logo-container">
+            <img src="Images\logo.svg" alt="Logo da Aplicação" />
+        </div>
+        <div className="form-container">
+            <h1 className="title">Realize seu Cadastro</h1>
+            <form method="POST" action="/">
+                <div className="item-form-container">
+                    <label htmlFor="photo">Foto do Perfil:</label>
+                    <input type="text" id="photo" placeholder="Informe a URL da Sua Foto" name="img" />
+                </div>
+                <div className="item-form-container">
+                    <label htmlFor="name">Nome:</label>
+                    <input type="text" id="name" placeholder="Informe seu Nome" name="username" />
+                </div>
+                <div className="item-form-container">
+                    <label htmlFor="mail">Email:</label>
+                    <input type="email" id="mail" placeholder="Informe seu Email" name="email" required />
+                </div>
+                <div className="item-form-container">
+                    <label htmlFor="password">Senha:</label>
+                    <input type="password" id="password" placeholder="Informe sua Senha" name="password" required />
+                </div>
+                <div className="item-form-container">
+                    <label htmlFor="password-confirm">Confirme sua Senha:</label>
+                    <input type="password" id="password-confirm" placeholder="Repita sua Senha" required />
+                </div>
+                <div className="button-container">
+                    <button type="submit" onClick={handleClickRegister} className="button-register" >
+                        Cadastre-se
+                    </button>
+                    <span className="item-our">ou</span>
+                    <button onClick={() => dispatch(googleSignIn())} className="google">
+                        <img src="/Images/google.svg" alt="google" />
+                        Continue with Google
+                    </button>
+                </div>
+                <div className="navigate-login-container">
+                    <p>Já faz parte da plataforma? <a href="/login">Fazer Login</a></p>
+                </div>
+            </form>
+        </div>
     </div>
   );
 };
