@@ -15,10 +15,6 @@ namespace EmpregIn.Service
 
             try
             {
-                FirebaseApp.Create(new AppOptions
-                {
-                    Credential = GoogleCredential.FromFile(pathToServiceAccountKey),
-                });
                 _firestoreDb = FirestoreDb.Create("empregin-c82cb");
                 Console.WriteLine("Firebase inicializado com sucesso.");
             }

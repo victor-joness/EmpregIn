@@ -1,4 +1,5 @@
 using EmpregIn.Service;
+using FirebaseAdmin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FirebaseService>();
 builder.Services.AddSingleton<BfsService>();
+
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:/Credencial/empregin-c82cb-firebase-adminsdk-t6hdk-b9d5c899d9.json");
+builder.Services.AddSingleton(FirebaseApp.Create());
 
 var app = builder.Build();
 
