@@ -43,7 +43,7 @@ const Post_Modal = (props) => {
       addDoc(collection(db, "posts"), {
         id: uuid(),
         user: {
-          name: user.displayName,
+          name: user.name,
           email: user.email,
           photo: user.photoURL,
         },
