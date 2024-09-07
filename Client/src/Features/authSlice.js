@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { url } from "./api";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-import { getUniqueID } from "../helpers/getUniqueId";
+import uuid from "react-uuid";
+
+import { db } from "../../firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 /*COLOCAR AS JANELAS DE ERROS TODAS DE ACORDO COM A REQUISIÇÃO E NAO COM BASE NO FRONT-END */
 
@@ -25,19 +26,28 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (user, { rejectWithValue }) => {
+
     console.log(user);
     try {
+
       //vamos fazer a requisição para api com essa url http://localhost:5005/api/register passando o objeto user como corpo da requisição
-      const data = await axios.post(`${url}/register`, {
-        userId: getUniqueID(),
-        name: user.username,
+      addDoc(collection(db, "users"), {
+        id: uuid(),
+        connections: [],
+        current_position: "",
+        description: "",
         email: user.email,
+        name: user.username,
+        photo: user.photo,
+        locality: "",
         password: user.password,
-        img: user.img,
+        qualification: "",
+        skills_tags: [user.interest],
+        creation_date: Timestamp.now()
+      }).then(() => {
+        toast.success("Registro feito com sucesso!");
       });
 
-      localStorage.setItem("token", data.data.token);
-      return data.data.token;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.data);

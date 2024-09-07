@@ -14,6 +14,8 @@ router.post("/", async (req, res) => {
   const password = req.body.password;
   const img = req.body.img; */
 
+  console.log(req.body);
+
   const user = {
     userID: req.body.userID,
     name: req.body.name,

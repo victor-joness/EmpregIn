@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
+import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../Features/authSlice";
@@ -11,6 +11,39 @@ const Register = () => {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
+  const interests = [
+    "Ensino Superior",
+    "Ensino Médio",
+    "Ensino Básico",
+    "Programação",
+    "Fitness",
+    "Tecnologia",
+    "Marketing",
+    "Mídias Sociais",
+    "Ciência de Dados",
+    "Design Gráfico",
+    "Saúde",
+    "Nutrição",
+    "Empreendedorismo",
+    "Desenvolvimento Pessoal",
+    "Liderança",
+    "Engenharia",
+    "Arte",
+    "Música",
+    "Fotografia",
+    "Esportes",
+    "Cinema",
+    "Culinária",
+    "Viagens",
+    "Carreiras",
+    "Finanças",
+    "Educação",
+    "Psicologia",
+    "Literatura",
+    "História",
+    "Moda",
+  ];
+
   //ele tenta pegar o auth no useSelect, caso tenha é pq ainda tem um user logado, então ele só faz o redirecionamento.
   useEffect(() => {
     if (auth.id) {
@@ -18,15 +51,11 @@ const Register = () => {
     }
   }, [auth.id, navigate]);
 
-  const [user, setUser] = useState({
-    userID: "",
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const handleClickRegister = async (e) => {
+    const user = { ...e };
 
-  const handleClickRegister = async () => {
+    console.log(user);
+
     try {
       dispatch(registerUser(user));
       //so ser o register for feito
@@ -37,71 +66,154 @@ const Register = () => {
   };
 
   //fazer as validações no front, parar não sobrecarrecar o back, mas o ideal é fazer no backend
-  const validationRegister = yup.object().shape({
-    name: yup
-      .string()
-      .min(3, "Seu nome deve ter pelo menos 3 caracteres")
-      .required("Este campo é obrigatório"),
-    email: yup
-      .string()
-      .email("insira um email valido")
-      .required("Este campo é obrigatório"),
-    password: yup
-      .string()
-      .min(6, "Sua senha deve ter pelo menos 6 caracteres")
-      .required("Este campo é obrigatório"),
-    confirmPassword: yup
-      .string()
-      .required("Este campo é obrigatório")
-      .test("passwords-match", "A senha deve ser igual", function (value) {
-        return this.parent.password === value;
-      }),
+  const validationSchema = Yup.object().shape({
+    photo: Yup.string().url("URL inválida").required("Campo obrigatório"),
+    username: Yup.string().required("Campo obrigatório"),
+    email: Yup.string().email("Email inválido").required("Campo obrigatório"),
+    password: Yup.string()
+      .min(6, "A senha deve ter no mínimo 6 caracteres")
+      .required("Campo obrigatório"),
+    passwordConfirm: Yup.string()
+      .oneOf([Yup.ref("password"), null], "As senhas devem coincidir")
+      .required("Campo obrigatório"),
   });
 
   //só pode uma div, então faz tudo dentro dessa ou <div>
   return (
     <div className="register-container">
+      <div className="form-container">
         <div className="logo-container">
+          <span className="logo">
+            Empreg
             <img src="Images\logo.svg" alt="Logo da Aplicação" />
+          </span>
         </div>
-        <div className="form-container">
-            <h1 className="title">Realize seu Cadastro</h1>
-            <form method="POST" action="/">
-                <div className="item-form-container">
-                    <label htmlFor="photo">Foto do Perfil:</label>
-                    <input type="text" id="photo" placeholder="Informe a URL da Sua Foto" name="img" />
-                </div>
-                <div className="item-form-container">
-                    <label htmlFor="name">Nome:</label>
-                    <input type="text" id="name" placeholder="Informe seu Nome" name="username" />
-                </div>
-                <div className="item-form-container">
-                    <label htmlFor="mail">Email:</label>
-                    <input type="email" id="mail" placeholder="Informe seu Email" name="email" required />
-                </div>
-                <div className="item-form-container">
-                    <label htmlFor="password">Senha:</label>
-                    <input type="password" id="password" placeholder="Informe sua Senha" name="password" required />
-                </div>
-                <div className="item-form-container">
-                    <label htmlFor="password-confirm">Confirme sua Senha:</label>
-                    <input type="password" id="password-confirm" placeholder="Repita sua Senha" required />
-                </div>
-                <div className="button-container">
-                    <button type="submit" onClick={handleClickRegister} className="button-register" >
-                        Cadastre-se
-                    </button>
-                    <span className="item-our">ou</span>
-                    <button onClick={() => dispatch(googleSignIn())} className="google">
-                        <img src="/Images/google.svg" alt="google" />
-                        Continue with Google
-                    </button>
-                </div>
-                <div className="navigate-login-container">
-                    <p>Já faz parte da plataforma? <a href="/login">Fazer Login</a></p>
-                </div>
-            </form>
-        </div>
+        <h1 className="title">Realize seu Cadastro</h1>
+        <Formik
+          initialValues={{
+            photo: "",
+            username: "",
+            email: "",
+            password: "",
+            passwordConfirm: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleClickRegister}
+        >
+          <Form className="form">
+            <div className="item-form-container">
+              <p>Foto do Perfil</p>
+              <Field
+                type="text"
+                id="photo"
+                name="photo"
+                placeholder="Informe a URL da Sua Foto"
+              />
+              <ErrorMessage
+                name="photo"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="item-form-container">
+              <p>Nome</p>
+              <Field
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Informe seu Nome"
+              />
+              <ErrorMessage
+                name="username"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="item-form-container">
+              <p>Email</p>
+              <Field
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Informe seu Email"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="item-form-container">
+              <p>Senha</p>
+              <Field
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Informe sua Senha"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="item-form-container">
+              <p>Confirme sua Senha</p>
+              <Field
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                placeholder="Repita sua Senha"
+              />
+              <ErrorMessage
+                name="passwordConfirm"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="item-form-container">
+              <p>Interesse</p>
+              <Field as="select" name="interest">
+                {interests.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </Field>
+            </div>
+
+            <div className="button-container">
+              <button
+                type="submit"
+                className="button-register"
+                onClick={handleClickRegister}
+              >
+                Cadastre-se
+              </button>
+              <span className="item-our">ou</span>
+              <button
+                type="button"
+                onClick={() => dispatch(googleSignIn())}
+                className="google"
+              >
+                <img src="/Images/google.svg" alt="google" />
+                Continue with Google
+              </button>
+            </div>
+
+            <div className="navigate-login-container">
+              <p>
+                Já faz parte da plataforma? <a href="/login">Fazer Login</a>
+              </p>
+            </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };

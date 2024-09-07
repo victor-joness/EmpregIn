@@ -18,13 +18,13 @@ import { signIn } from "./App-config-teste/user-slice";
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(signIn(user));
-      }
-    });
-  });
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       dispatch(signIn(user));
+  //     }
+  //   });
+  // });
   return (
     <div className="app">
       <BrowserRouter>
