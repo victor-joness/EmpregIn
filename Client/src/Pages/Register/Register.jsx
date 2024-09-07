@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../App-config-teste/user-slice";
 import { Timestamp } from "firebase/firestore";
+import { googleSignIn } from "../../App-config-teste/user-slice";
 
 const Register = () => {
   const dispatch = useDispatch();
