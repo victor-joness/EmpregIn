@@ -2,8 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./Feed_Perfil.css";
 
-const Feed_Perfil = (props) => {
-  const user = useSelector((state) => state.user.value);
+const Feed_Perfil = () => {
+  const user = useSelector((state) => state.user);
+  const loginStatus = useSelector((state) => state.user.registerStatus);
 
   return (
     <div className="container_Feed_Perfil ">
@@ -16,7 +17,7 @@ const Feed_Perfil = (props) => {
               src={user?.photoURL ? user.photoURL : "/Images/photo.svg"}
               alt="User"
             />
-            <div className="link">Bem vindo, {user && user.displayName}</div>
+            <div className="link">Bem-vindo, {user && user.displayName || user?.name}</div>
           </a>
           <a href="/">
             <div className="add-photo-text">Adicionar uma foto</div>
@@ -25,7 +26,7 @@ const Feed_Perfil = (props) => {
         <div className="widget">
           <a href="/feed">
             <div>
-              <span>conexões</span>
+              <span>Conexões</span>
               <span>Aumente o seu network</span>
             </div>
             <p>130</p>

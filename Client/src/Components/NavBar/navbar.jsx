@@ -1,6 +1,6 @@
 import React from "react";
 
-import './Navbar.css'
+import "./Navbar.css";
 
 import { FiUsers } from "react-icons/fi";
 import { BsSuitcaseLg } from "react-icons/bs";
@@ -17,61 +17,91 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "../../App-config-teste/user-slice";
 
 const NavBar = () => {
-	const user = useSelector((state) => state.user.value);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const registerStatus = useSelector((state) => state.user.registerStatus);
 
-	function signOutUser() {
-		console.log("Clicou para Deslogar");
-		
-		dispatch(signOut());
+  console.log(registerStatus);
 
-		navigate("/");
-	}
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-	return (
-		<div className="header">
-			<div className="box_logo">
-				<img src="Images\logo.svg" alt="Logo da Aplicação" />
-			</div>
-			<div className="box_icons_navigation">
-				<ul>
-					<li><a href="#"><FaRss /> <span>Feed</span></a></li>
-					<li><a href="#"><FiUsers /> <span>Rede</span></a></li>
-					<li><a href="#"><BsSuitcaseLg /> <span>Conexões</span></a></li>
-					<li><a href="#"><BiComment /> <span>Chat</span></a></li>
-					<li><a href="#"><FiBook /> <span>Algoritmo</span></a></li>
-				</ul>
-			</div>
-			<div className="box_search">
-				<label htmlFor="search"><FaSistrix /></label>
-				<input type="text" placeholder="Search" id="search"/>
-			</div>
-			<div className="box_account">
-				<div className="box_profile_image">
-					<img 
-						src={user?.photoURL ? user.photoURL : "src/assets/profile_image.png"}
-						alt="Foto de Perfil" 
-					/>
-				</div>
-				<div className="box_accounts_info">
-					<div className="box_info_name">
-						<h2 className="profile_name">{user && user.displayName}</h2> 
-					</div>
-					<div className="box_info_views">
-						<p className="views_today">367 Conexões</p>
-						<span className="new_followers">+32 <MdArrowOutward /></span>
-					</div>
-				</div>
-			</div>
-			<div className="box_logout">
-				<button className="btn_logout" type="button" onClick={signOutUser}>
-					<IoIosLogOut /> 
-					<span>Logout</span>
-				</button>
-			</div>
-		</div>
-	)
+  function signOutUser() {
+    console.log("Clicou para Deslogar");
+
+    dispatch(signOut());
+
+    navigate("/");
+  }
+
+  return (
+    <div className="header">
+      <div className="box_logo">
+        <img src="Images\logo.svg" alt="Logo da Aplicação" />
+      </div>
+      <div className="box_icons_navigation">
+        <ul>
+          <li>
+            <a href="/feed">
+              <FaRss /> <span>Feed</span>
+            </a>
+          </li>
+          <li>
+            <a href="/rede">
+              <FiUsers /> <span>Rede</span>
+            </a>
+          </li>
+          <li>
+            <a href="/conexao">
+              <BsSuitcaseLg /> <span>Conexões</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <BiComment /> <span>Chat</span>
+            </a>
+          </li>
+          <li>
+            <a href="/algortimo">
+              <FiBook /> <span>Algoritmo</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="box_search">
+        <label htmlFor="search">
+          <FaSistrix />
+        </label>
+        <input type="text" placeholder="Search" id="search" />
+      </div>
+      <div className="box_account">
+        <div className="box_profile_image">
+          <img
+            src={
+              user?.photoURL ? user.photoURL : "src/assets/profile_image.png"
+            }
+            alt="Foto de Perfil"
+          />
+        </div>
+        <div className="box_accounts_info">
+          <div className="box_info_name">
+            <h2 className="profile_name">{user && user.displayName || user?.name}</h2>
+          </div>
+          <div className="box_info_views">
+            <p className="views_today">367 Conexões</p>
+            <span className="new_followers">
+              +32 <MdArrowOutward />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="box_logout">
+        <button className="btn_logout" type="button" onClick={signOutUser}>
+          <IoIosLogOut />
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default NavBar;

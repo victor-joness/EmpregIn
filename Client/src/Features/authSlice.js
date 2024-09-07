@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/* import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import uuid from "react-uuid";
@@ -6,18 +6,21 @@ import uuid from "react-uuid";
 import { db } from "../../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-/*COLOCAR AS JANELAS DE ERROS TODAS DE ACORDO COM A REQUISIÇÃO E NAO COM BASE NO FRONT-END */
-
 const initialState = {
-  token: localStorage.getItem("token"),
-  userID: "",
-  name: "",
+  uid: "",
+  connections: "",
+  current_position: "",
+  description: "",
   email: "",
-  Img: "",
+  name: "",
+  photo: "",
+  locality: "",
+  password: "",
+  qualification: "",
+  skills_tags: [],
+  creation_date: "",
   registerStatus: "",
   registerError: "",
-  loginStatus: "",
-  loginError: "",
   userLoaded: false,
 };
 
@@ -26,28 +29,25 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (user, { rejectWithValue }) => {
-
-    console.log(user);
     try {
-
-      //vamos fazer a requisição para api com essa url http://localhost:5005/api/register passando o objeto user como corpo da requisição
       addDoc(collection(db, "users"), {
         id: uuid(),
-        connections: [],
-        current_position: "",
-        description: "",
+        connections: user.connections,
+        current_position: user.current_position,
+        description: user.description,
         email: user.email,
         name: user.username,
         photo: user.photo,
-        locality: "",
+        locality: user.locality,
         password: user.password,
-        qualification: "",
+        qualification: user.qualification,
         skills_tags: [user.interest],
-        creation_date: Timestamp.now()
+        creation_date: Timestamp.now(),
       }).then(() => {
         toast.success("Registro feito com sucesso!");
       });
 
+      return user;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.data);
@@ -55,8 +55,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-//aqui temos um "slice" do redux, aqui a gente pode definir um objeto e esse objeto pode ter varios estados(states), atraves do inicialState a genter define esse estados
-//temos tbm os reducers -> que sao actions pode ser traduzido como "metodos" que vão mexer nesses estados, nesse caso temos um logout e um load user;
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -100,22 +98,20 @@ const authSlice = createSlice({
     });
 
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      if (action.payload) {
-        const user = jwtDecode(action.payload);
-        toast.success("Registro realizado com sucesso");
-        return {
-          ...state,
-          token: action.payload,
-          userId: user.id,
-          name: user.name,
-          email: user.email,
-          Img: user.Img,
-          registerStatus: "success",
-        };
-      } else {
-        toast.error("Erro ao registrar");
-        return state;
-      }
+      const user = action.payload;
+
+      state.uid = user.id;
+      state.connections = user.connections;
+      state.current_position = user.current_position;
+      state.description = user.description;
+      state.email = user.email;
+      state.name = user.name;
+      state.photo = user.photo;
+      state.locality = user.locality;
+      state.password = user.password;
+      state.qualification = user.qualification;
+      state.skills_tags = [user.interest];
+      state.creation_date = user.creation_date;
     });
 
     builder.addCase(registerUser.rejected, (state, action) => {
@@ -132,3 +128,4 @@ const authSlice = createSlice({
 export const { loadUser, logoutUser } = authSlice.actions;
 
 export default authSlice.reducer;
+ */

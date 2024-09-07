@@ -14,7 +14,7 @@ const Comentario = (props) => {
       comments: [
         {
           name: props.user.name,
-          photo: props.user.photo,
+          photoURL: props.user.photoURL,
           email: props.user.email,
           text,
           date: Timestamp.now(),
@@ -27,7 +27,7 @@ const Comentario = (props) => {
   return (
     <div className="container-comentario">
       <div className="input">
-        <img src={props.user.photo} alt="user" />
+        <img src={props.user.photoURL} alt="user" />
         <InputEmoji
           value={text}
           onChange={setText}
@@ -38,7 +38,7 @@ const Comentario = (props) => {
       </div>
       {props.comments.map((comment, id) => (
         <div className="comment-container" key={id}>
-          <img src={comment?.photo} alt="user" />
+          <img src={comment?.photoURL} alt="user" />
           <div className="content-comentario">
             <div className="header-comentario">
               <div className="info">

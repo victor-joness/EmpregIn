@@ -1,99 +1,93 @@
 .container_Feed_Recomendacao {
-  grid-area: rightside;
+  display: flex;
+  flex-direction: column;
 }
 
 .follow-card {
-  text-align: center;
-  overflow: hidden;
-  margin-bottom: 8px;
-  background-color: #fff;
-  border-radius: 5px;
-  position: relative;
-  border: none;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
-  padding: 12px;
-}
-
-.title {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 16.5px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
-.title h2 {
-  color: #333;
-  font-weight: 700;
-}
-
-.feed-list {
-  margin-top: 16px;
-}
-
-.feed-list li {
+.follow-card .title {
   display: flex;
   align-items: center;
-  margin: 12px 0;
-  position: relative;
-  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.feed-list li > div {
+.grid-feed-list {
+  width: 100%;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.grid-item {
   display: flex;
-  flex-direction: column;
-  text-align: start;
-  gap: 4px;
-}
-
-.feed-list button {
-  background-color: transparent;
-  color: rgba(0, 0, 0, 0.6);
-  border: none;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
-  padding: 16px;
   align-items: center;
-  border-radius: 15px;
-  box-sizing: border-box;
-  font-weight: 600;
-  display: inline-flex;
-  justify-content: center;
-  max-height: 32px;
-  max-width: 480px;
-  text-align: center;
-  outline: none;
-  font-size: 16px;
-  transition: 0.2s;
-  cursor: pointer;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
-.feed-list button img {
-  margin-right: 5px;
-}
-
-.feed-list button:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6);
+.grid-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .avatar {
-  background-image: url("https://static-exp1.licdn.com/sc/h/1b4vl1r54ijmrmcyxzoidwmxs");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 45px;
-  height: 45px;
-  margin-right: 8px;
-}
-
-.recommendation {
-  color: #0a66c2;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-size: 24px; /* Tamanho dos ícones */
+}
+
+.interest-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.interest-info span {
   font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.interest-info button {
+  background-color: transparent;
+  border: none;
+  color: #0073b1;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
+.interest-info button svg {
+  margin-right: 5px;
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0073b1;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+/* Mantendo o banner-card como estava antes */
 .banner-card {
   text-align: center;
   overflow: hidden;
@@ -106,6 +100,7 @@
   padding: 12px;
   position: sticky;
   top: 75px;
+  margin-top: 2rem;
 }
 
 .banner-card img {

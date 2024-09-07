@@ -21,7 +21,7 @@ export const RegisterAPI = (email, password) => {
   try {
     let response = createUserWithEmailAndPassword(auth, email, password);
     return response;
-  } catch (err) {
+  } catch (err) { 
     return err;
   }
 };

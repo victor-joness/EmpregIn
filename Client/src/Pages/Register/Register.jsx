@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../Features/authSlice";
+import { registerUser } from "../../App-config-teste/user-slice";
+import { Timestamp } from "firebase/firestore";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -44,22 +45,25 @@ const Register = () => {
     "Moda",
   ];
 
-  //ele tenta pegar o auth no useSelect, caso tenha é pq ainda tem um user logado, então ele só faz o redirecionamento.
-  useEffect(() => {
+ /*  useEffect(() => {
     if (auth.id) {
       navigate("/home");
     }
-  }, [auth.id, navigate]);
+  }, [auth.id, navigate]); */
 
   const handleClickRegister = async (e) => {
-    const user = { ...e };
-
-    console.log(user);
+    const user = { ...e, 
+      connections: [],
+      current_position: "",
+      description: "",
+      locality: "",
+      qualification: "",
+      creation_date: Timestamp.now()
+    };
 
     try {
       dispatch(registerUser(user));
-      //so ser o register for feito
-      navigate("/home");
+      navigate("/feed");
     } catch (err) {
       console.log(err);
     }
@@ -67,8 +71,8 @@ const Register = () => {
 
   //fazer as validações no front, parar não sobrecarrecar o back, mas o ideal é fazer no backend
   const validationSchema = Yup.object().shape({
-    photo: Yup.string().url("URL inválida").required("Campo obrigatório"),
-    username: Yup.string().required("Campo obrigatório"),
+    photoURL: Yup.string().url("URL inválida").required("Campo obrigatório"),
+    name: Yup.string().required("Campo obrigatório"),
     email: Yup.string().email("Email inválido").required("Campo obrigatório"),
     password: Yup.string()
       .min(6, "A senha deve ter no mínimo 6 caracteres")
@@ -91,26 +95,29 @@ const Register = () => {
         <h1 className="title">Realize seu Cadastro</h1>
         <Formik
           initialValues={{
-            photo: "",
-            username: "",
+            photoURL: "",
+            name: "",
             email: "",
             password: "",
             passwordConfirm: "",
+            interest: interests[0],
           }}
           validationSchema={validationSchema}
-          onSubmit={handleClickRegister}
+          onSubmit={(values) => {
+            handleClickRegister(values);
+          }}
         >
           <Form className="form">
             <div className="item-form-container">
               <p>Foto do Perfil</p>
               <Field
                 type="text"
-                id="photo"
-                name="photo"
+                id="photoURL"
+                name="photoURL"
                 placeholder="Informe a URL da Sua Foto"
               />
               <ErrorMessage
-                name="photo"
+                name="photoURL"
                 component="div"
                 className="error-message"
               />
@@ -120,12 +127,12 @@ const Register = () => {
               <p>Nome</p>
               <Field
                 type="text"
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 placeholder="Informe seu Nome"
               />
               <ErrorMessage
-                name="username"
+                name="name"
                 component="div"
                 className="error-message"
               />
@@ -191,7 +198,6 @@ const Register = () => {
               <button
                 type="submit"
                 className="button-register"
-                onClick={handleClickRegister}
               >
                 Cadastre-se
               </button>

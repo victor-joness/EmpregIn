@@ -18,22 +18,18 @@ import Comentario from "../Comentario/Comentario";
 import Post_Modal from "../Post_Modal/Post_Modal";
 
 const Feed_Main = () => {
-  const [user, setUser] = useState(useSelector((state) => state.user.value));
+  const user = useSelector((state) => state.user);
+
   const [posts, setPosts] = useState([]);
   const [isOpenModel, setIsOpenModel] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showComments, setShowComments] = useState([]);
 
   useEffect(() => {
+    
     const auth = getAuth();
     const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser({
-          name: currentUser.displayName,
-          email: currentUser.email,
-          photo: currentUser.photoURL,
-        });
-
         const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
 
         const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
@@ -57,8 +53,10 @@ const Feed_Main = () => {
     };
   }, []);
 
+  console.log(user);
+
   const fetchLikes = async (postDocumentId, likes) => {
-    const userLike = { name: user.name, email: user.email, photo: user.photo };
+    const userLike = { name: user.name, email: user.email, photoURL: user.photoURL };
 
     try {
       const updatedLikes = likes.some((l) => l.email === user.email)
@@ -114,6 +112,8 @@ const Feed_Main = () => {
       console.error("Error adding comment:", error);
     }
   };
+
+  console.log(user);
 
   return (
     <div className="container_Feed_Main">
