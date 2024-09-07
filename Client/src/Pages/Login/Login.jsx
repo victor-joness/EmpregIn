@@ -62,8 +62,18 @@ const Login = () => {
   //só pode uma div, então faz tudo dentro dessa ou <div>
   return (
     <div className="login-container">
-      <h1>LOGIN</h1>
-    </div>
+      <img src="/Images/logo_grande.png" alt="logo" />
+  <h2>Login</h2>
+  <form>
+    <input type="text" placeholder="Nome de usuário" required />
+    <input type="password" placeholder="Senha" required />
+    <button type="submit" className="login">Entrar</button>
+
+   <h3>Ainda não tem uma conta?</h3>
+   <br></br>
+   <a href="">Registrar-se</a>
+  </form>
+</div>
   );
 };
 

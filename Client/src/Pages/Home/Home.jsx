@@ -18,7 +18,7 @@ const Home = () => {
       {user && <Navigate to={"feed"} />}
       <nav>
         <a href="/">
-          <img src="/Images/login-logo.svg" alt="logo" />
+          <img src="/Images/logo_grande.png" alt="logo" />
         </a>
         <div>
           {user ? (
@@ -27,29 +27,32 @@ const Home = () => {
             </a>
           ) : (
             <>
-              <a href="/register" className="join">
-                Cadastre-se agora
-              </a>
-              <a href="/login" className="login">
-                Entrar
-              </a>
+            
             </>
           )}
         </div>
       </nav>
 
       <section className="section-main">
-        <div className="hero">
-          <h1>Welcome to your professional community</h1>
-          <img src="/Images/hero.svg" alt="hero" />
-        </div>
-        <div className="form">
-          <button onClick={() => dispatch(googleSignIn())} className="google">
-            <img src="/Images/google.svg" alt="google" />
-            Sign in with Google
-          </button>
-        </div>
-      </section>
+  <div className="hero">
+    <h1>Seja bem vindo a sua comunidade profissional</h1>
+    <img src="/Images/hero.svg" alt="hero" />
+  </div>
+  <div className="form">
+    <button onClick={() => dispatch(googleSignIn())} className="google">
+      <img src="/Images/google.svg" alt="google" />
+      Entrar com o Google
+    </button>
+    <div className="form-buttons">
+      <a href="/register" className="join">
+        Junte-se agora
+      </a>
+      <a href="/login" className="login">
+        Entrar
+      </a>
+    </div>
+  </div>
+</section>
     </div>
   );
 };
