@@ -5,8 +5,6 @@ import { toast } from "react-toastify";
 import uuid from "react-uuid";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
-import { useNavigate } from "react-router-dom";
-
 const initialState = {
   uid: "",
   connections: "",
@@ -35,8 +33,6 @@ export const googleSignIn = createAsyncThunk(
     return payload.user;
   }
 );
-
-const navigate = useNavigate();
 
 // Ação para registro de usuário
 export const registerUser = createAsyncThunk(
@@ -109,7 +105,7 @@ const UserSlice = createSlice({
       state.loginStatus = "fulfilled";
       if (!state.toastDisplayed) {
         toast.success("Login bem-sucedido!");
-        navigate("/login");
+        window.location.href("/login");
         state.toastDisplayed = true;
       }
     });
