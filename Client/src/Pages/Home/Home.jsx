@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 /*________________________________________________________________________________*/
 
 const Home = () => {
+  document.title = "Home | EmpregIn";
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 

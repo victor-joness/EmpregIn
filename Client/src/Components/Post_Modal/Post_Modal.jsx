@@ -130,7 +130,9 @@ const Post_Modal = (props) => {
 
             <button
               disabled={text.trim() === "" && !image && !video}
-              className="post"
+              className={`post-button ${
+                text.trim() === "" && !image && !video ? "disabled" : ""
+              }`}
               onClick={(e) => postArticleHandler(e)}
             >
               Postar

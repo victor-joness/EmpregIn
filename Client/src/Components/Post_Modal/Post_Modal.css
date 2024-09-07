@@ -126,13 +126,13 @@
   align-items: center;
 }
 
-.actions-post-modal button {
+/* .actions-post-modal button {
   background-color: transparent;
   border: 0;
   outline: 0;
   cursor: pointer;
   transition: 0.2s;
-}
+} */
 
 .actions-post-modal button:hover {
   background-color: rgba(0, 0, 0, 0.08);
@@ -155,12 +155,13 @@
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  cursor: pointer;
 }
 
-.editor-post-modal .add-buttons-post-modal button:disabled {
+/* .editor-post-modal .add-buttons-post-modal button:disabled {
   filter: contrast(0);
   background-color: transparent;
-}
+} */
 
 .editor-post-modal .share-comment-post-modal {
   border-left: 1px solid rgba(0, 0, 0, 0.15);
@@ -205,6 +206,31 @@
 
 .post-button-post-modal:not(:disabled):hover {
   background-color: #006097;
+}
+
+.post-button {
+  background-color: #0073b1;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.post-button:hover {
+  background-color: #005b8c;
+}
+
+.post-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.post-button:active {
+  background-color: #004f75;
 }
 
 @keyframes up {

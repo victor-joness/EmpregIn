@@ -11,11 +11,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   //ele tenta pegar o auth no useSelect, caso tenha é pq ainda tem um user logado, então ele só faz o redirecionamento.
-  useEffect(() => {
+/*   useEffect(() => {
     if (auth.id) {
       navigate("/home");
     }
-  }, [auth.id, navigate]);
+  }, [auth.id, navigate]); */
 
   /* const [user, setUser] = useState({
     userID: "",
@@ -27,9 +27,9 @@ const Login = () => {
 
   const handleClickLogin = async () => {
     try {
-      dispatch(loginUser(user));
+      /* dispatch(loginUser(user));
       //so ser o register for feito
-      navigate("/home");
+      navigate("/home"); */
     } catch (err) {
       console.log(err);
     }

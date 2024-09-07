@@ -6,17 +6,9 @@ import NavBar from "../../Components/NavBar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 
 import "./Feed.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const Feed = (props) => {
-  document.title = "Feed | Linkedin";
-  const user = useSelector((state) => state.user.value);
-  const navigate = useNavigate();
-
-  if (user == undefined) {
-    window.location.href = "/";
-  }
+  document.title = "Feed | EmpregIn";
 
   return (
     <div className="container">
