@@ -22,12 +22,14 @@ nav > a {
 
 .join {
   padding: 10px 12px;
-  color: rgba(0, 0, 0, 0.6);
+  color: #067d71;
   margin-right: 12px;
   border-radius: 4px;
   transition: 0.2s;
   font-weight: 600;
   font-size: 1.6rem;
+  text-align: center;
+  line-height: 40px;
 }
 
 .join:hover {
@@ -37,8 +39,7 @@ nav > a {
 
 .login {
   box-shadow: inset 0 0 0 1px #0a66c2;
-  color: #0a66c2;
-  border-radius: 24px;
+  border-radius: 30px;
   transition: 0.2s;
   font-weight: 600;
   line-height: 40px;
@@ -118,11 +119,59 @@ nav > a {
   margin-top: 100px;
   width: 400px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 3px; 
+}
+
+.form-buttons .login, .form-buttons .join {
+  flex: 1; 
+  text-align: center; 
+  padding: 2px 6px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.form-buttons .login {
+  box-shadow: inset 0 0 0 1px #067d71;
+  color: #ffffff;
+  transition: 0.2s;
+  background-color: #067d71;
+}
+
+.form-buttons .login:hover {
+  background-color: rgba(4, 232, 190, 0.15);
+  box-shadow: inset 0 0 0 2px #067d71;
+  color: #067d71;
+}
+
+.form-buttons .join {
+  box-shadow: inset 0 0 0 1px #40b189;
+  color: rgba(40, 0, 0, 0.6);
+  transition: 0.2s;
+  color: #40b189;
+}
+
+.form-buttons .join:hover {
+  background-color: rgba(40, 177, 89, 0.10);
+  color: rgba(0, 0, 0, 0.9);
 }
 
 @media (max-width: 767px) {
   .form {
     margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+    gap: 10px; 
   }
 }
 
@@ -155,3 +204,10 @@ nav > a {
 .google img {
   margin-right: 20px;
 }
+
+.container {
+  padding-top: 52px;
+  max-width: 100%;
+  background-color: #f5f5f5;
+  height: 100vh;
+  width: 100%;}
