@@ -6,6 +6,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 const Feed_Recomendacao = (props) => {
   const interests = [
     { name: "Ensino Superior", icon: <FaGraduationCap /> },
+    { name: "Ensino Médio", icon: <FaGraduationCap /> },
+    { name: "Ensino Básico", icon: <FaGraduationCap /> },
     { name: "Programação", icon: <FaCode /> },
     { name: "Fitness", icon: <FaDumbbell /> },
     { name: "Marketing", icon: <FaChartLine /> },
@@ -23,8 +25,7 @@ const Feed_Recomendacao = (props) => {
     { name: "Automóveis", icon: <FaCar /> },
     { name: "Inovação", icon: <FaLightbulb /> },
     { name: "Design", icon: <FaBrush /> },
-    { name: "Podcast", icon: <FaMicrophone /> },
-    // Adicione mais interesses conforme necessário
+    { name: "Podcast", icon: <FaMicrophone /> }
   ];
 
   return (
