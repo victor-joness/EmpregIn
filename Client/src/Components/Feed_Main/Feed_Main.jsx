@@ -53,8 +53,6 @@ const Feed_Main = () => {
     };
   }, []);
 
-  console.log(user);
-
   const fetchLikes = async (postDocumentId, likes) => {
     const userLike = { name: user.name, email: user.email, photoURL: user.photoURL };
 
@@ -98,7 +96,6 @@ const Feed_Main = () => {
   );
 
   const handleAddComment = async (postId, newComment) => {
-    console.log(postId);
     try {
       const postRef = doc(db, "posts", postId);
       const postDoc = await getDoc(postRef);
@@ -112,9 +109,7 @@ const Feed_Main = () => {
       console.error("Error adding comment:", error);
     }
   };
-
-  console.log(user);
-
+  
   return (
     <div className="container_Feed_Main">
       <div className="share-box">
