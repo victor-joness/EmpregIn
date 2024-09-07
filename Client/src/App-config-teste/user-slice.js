@@ -105,7 +105,7 @@ const UserSlice = createSlice({
       state.loginStatus = "fulfilled";
       if (!state.toastDisplayed) {
         toast.success("Login bem-sucedido!");
-        window.location.href("/login");
+        window.location.href = "/feed";
         state.toastDisplayed = true;
       }
     });
