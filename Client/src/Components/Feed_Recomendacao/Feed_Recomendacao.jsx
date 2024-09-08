@@ -1,32 +1,78 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Feed_Recomendacao.css";
 import { FaGraduationCap, FaCode, FaDumbbell, FaChartLine, FaMusic, FaCamera, FaPalette, FaBriefcase, FaHeart, FaLaptopCode, FaGamepad, FaUtensils, FaPlane, FaBook, FaFilm, FaCar, FaLightbulb, FaBrush, FaMicrophone } from "react-icons/fa"; 
 import { AiOutlinePlus } from "react-icons/ai"; 
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserSkills } from "../../App-config-teste/user-slice";
+
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { toast } from "react-toastify";
 
 const Feed_Recomendacao = (props) => {
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
   const interests = [
-    { name: "Ensino Superior", icon: <FaGraduationCap /> },
-    { name: "Ensino Médio", icon: <FaGraduationCap /> },
-    { name: "Ensino Básico", icon: <FaGraduationCap /> },
-    { name: "Programação", icon: <FaCode /> },
-    { name: "Fitness", icon: <FaDumbbell /> },
-    { name: "Marketing", icon: <FaChartLine /> },
-    { name: "Música", icon: <FaMusic /> },
-    { name: "Fotografia", icon: <FaCamera /> },
-    { name: "Arte", icon: <FaPalette /> },
-    { name: "Carreira", icon: <FaBriefcase /> },
-    { name: "Saúde", icon: <FaHeart /> },
-    { name: "Desenvolvimento Web", icon: <FaLaptopCode /> },
-    { name: "Jogos", icon: <FaGamepad /> },
-    { name: "Culinária", icon: <FaUtensils /> },
-    { name: "Viagens", icon: <FaPlane /> },
-    { name: "Literatura", icon: <FaBook /> },
-    { name: "Cinema", icon: <FaFilm /> },
-    { name: "Automóveis", icon: <FaCar /> },
-    { name: "Inovação", icon: <FaLightbulb /> },
-    { name: "Design", icon: <FaBrush /> },
-    { name: "Podcast", icon: <FaMicrophone /> }
+    { name: "Ensino Superior", icon: <FaGraduationCap color="green"/> },
+    { name: "Ensino Médio", icon: <FaGraduationCap color="green"/> },
+    { name: "Ensino Básico", icon: <FaGraduationCap color="green"/> },
+    { name: "Programação", icon: <FaCode color="green"/> },
+    { name: "Fitness", icon: <FaDumbbell color="green"/> },
+    { name: "Marketing", icon: <FaChartLine color="green"/> },
+    { name: "Música", icon: <FaMusic color="green"/> },
+    { name: "Fotografia", icon: <FaCamera color="green"/> },
+    { name: "Arte", icon: <FaPalette color="green"/> },
+    { name: "Carreira", icon: <FaBriefcase color="green"/> },
+    { name: "Saúde", icon: <FaHeart color="green"/> },
+    { name: "Desenvolvimento Web", icon: <FaLaptopCode color="green"/> },
+    { name: "Jogos", icon: <FaGamepad color="green"/> },
+    { name: "Culinária", icon: <FaUtensils color="green"/> },
+    { name: "Viagens", icon: <FaPlane color="green"/> },
+    { name: "Literatura", icon: <FaBook color="green"/> },
+    { name: "Cinema", icon: <FaFilm color="green"/> },
+    { name: "Automóveis", icon: <FaCar color="green"/> },
+    { name: "Inovação", icon: <FaLightbulb color="green"/> },
+    { name: "Design", icon: <FaBrush color="green"/> },
+    { name: "Podcast", icon: <FaMicrophone color="green"/> }
   ];
+
+  const [availableInterests, setAvailableInterests] = useState(interests);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const filteredInterests = interests.filter(
+        (interest) => !user?.skills_tags?.includes(interest.name)
+      );
+      setAvailableInterests(filteredInterests);
+    }, 500);
+  
+    return () => clearTimeout(timeoutId);
+  }, [user]);
+
+  const handleInterestClick = async (interest) => {
+    const userDocRef = doc(db, "users", user.id);
+  
+    try {
+      await updateDoc(userDocRef, {
+        skills_tags: arrayUnion(interest),
+      });
+
+      setAvailableInterests((prevInterests) =>
+        prevInterests.filter((item) => item.name !== interest)
+      );
+
+      dispatch(updateUserSkills(interest));
+
+      const localStorageUser = JSON.parse(localStorage.getItem('user')) || {};
+      localStorageUser.skills_tags = [...(localStorageUser.skills_tags || []), interest];
+      localStorage.setItem('user', JSON.stringify(localStorageUser));
+
+      toast.success(`Interesse '${interest}' adicionado com sucesso!`);
+    } catch (error) {
+      console.error("Erro ao atualizar os interesses: ", error);
+    }
+  };
 
   return (
     <div className="container_Feed_Recomendacao">
@@ -37,14 +83,14 @@ const Feed_Recomendacao = (props) => {
         </div>
 
         <div className="grid-feed-list">
-          {interests.map((interest, index) => (
+          {availableInterests.map((interest, index) => (
             <div className="grid-item" key={index}>
               <a href="/">
                 <div className="avatar">{interest.icon}</div>
               </a>
               <div className="interest-info">
                 <span>#{interest.name}</span>
-                <button>
+                <button onClick={() => handleInterestClick(interest.name)}>
                   <AiOutlinePlus /> Seguir
                 </button>
               </div>

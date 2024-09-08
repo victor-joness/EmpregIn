@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -18,6 +18,8 @@ const Register = () => {
   if(user){
     return <Navigate to={"/feed"} />
   }
+
+  //TODO permitir apenas emails novos
 
   const interests = [
     "Ensino Superior",
@@ -55,6 +57,8 @@ const Register = () => {
   const handleClickRegister = async (e) => {
     const user = { ...e, 
       connections: [],
+      connections_send: [],
+      connections_received: [],
       current_position: "",
       description: "",
       locality: "",

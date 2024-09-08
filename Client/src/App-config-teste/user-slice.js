@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { db, auth, provider } from "../../firebase";
 import { toast } from "react-toastify";
 import uuid from "react-uuid";
@@ -16,6 +16,8 @@ import {
 const initialState = {
   uid: "",
   connections: "",
+  connections_send: "",
+  connections_received: "",
   current_position: "",
   description: "",
   email: "",
@@ -50,6 +52,8 @@ export const registerUser = createAsyncThunk(
       await addDoc(collection(db, "users"), {
         id: uuid(),
         connections: user.connections,
+        connections_send: user.connections_send,
+        connections_received: user.connections_received,
         current_position: user.current_position,
         description: user.description,
         email: user.email,
@@ -163,6 +167,12 @@ const UserSlice = createSlice({
       state.loading = false;
       toast.success("Logout realizado com sucesso");
     },
+    updateUserSkills: (state, action) => {
+      const newSkill = action.payload;
+      if (!state.value.skills_tags.includes(newSkill)) {
+        state.value.skills_tags.push(newSkill);
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(googleSignIn.pending, (state) => {
@@ -203,6 +213,8 @@ const UserSlice = createSlice({
       state.value = user;
       state.photoURL = user.photoURL;
       state.connections = user.connections;
+      state.connections_send = user.connections_send;
+      state.connections_received = user.connections_received;
       state.current_position = user.current_position;
       state.description = user.description;
       state.email = user.email;
@@ -232,6 +244,8 @@ const UserSlice = createSlice({
       state.value = user;
       state.photoURL = user.photoURL;
       state.connections = user.connections;
+      state.connections_send = user.connections_send;
+      state.connections_received = user.connections_received;
       state.current_position = user.current_position;
       state.description = user.description;
       state.email = user.email;
@@ -264,6 +278,9 @@ const UserSlice = createSlice({
       state.name = user.name;
       state.email = user.email;
       state.photoURL = user.photoURL;
+      state.connections = user.connections;
+      state.connections_send = user.connections_send;
+      state.connections_received = user.connections_received;
       state.current_position = user.current_position;
       state.description = user.description;
       state.locality = user.locality;
@@ -284,5 +301,5 @@ const UserSlice = createSlice({
   },
 });
 
-export const { signIn, signOut } = UserSlice.actions;
+export const { signIn, signOut, updateUserSkills  } = UserSlice.actions;
 export default UserSlice.reducer;

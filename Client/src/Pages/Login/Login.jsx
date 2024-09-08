@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -7,15 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../App-config-teste/user-slice";
 import { Navigate } from "react-router-dom";
 
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.value);
 
-  if(user){
-    return <Navigate to={"/feed"} />
+  if (user) {
+    return <Navigate to={"/feed"} />;
   }
 
   const validationLogin = yup.object().shape({
