@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import uuid from "react-uuid";
 
 const Post_Modal = (props) => {
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user);
   const [text, setText] = useState("");
   const sharedImage = useRef();
   const [image, setImage] = useState("");
@@ -80,10 +80,10 @@ const Post_Modal = (props) => {
         <div className="shared-content-post-modal">
           <div className="user-info-post-modal">
             <img
-              src={user.photoURL ? user.photoURL : "/Images/user.svg"}
+              src={user?.photoURL ? user?.photoURL : "/Images/user.svg"}
               alt="user"
             />
-            <span>{user.displayName}</span>
+            <span>{user?.name}</span>
           </div>
 
           <div className="description-post-modal">

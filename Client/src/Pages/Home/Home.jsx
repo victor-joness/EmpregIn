@@ -11,6 +11,11 @@ import { toast } from "react-toastify";
 const Home = () => {
   document.title = "Home | EmpregIn";
   const user = useSelector((state) => state.user.value);
+
+  if(user){
+    return <Navigate to={"feed"} />
+  }
+
   const dispatch = useDispatch();
 
   return (

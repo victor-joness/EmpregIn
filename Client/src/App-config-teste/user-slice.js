@@ -1,9 +1,17 @@
+import { useState, useEffect } from "react";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, auth, provider } from "../../firebase";
 import { toast } from "react-toastify";
 import uuid from "react-uuid";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  query,
+  getDocs,
+  where,
+} from "firebase/firestore";
 
 const initialState = {
   uid: "",
@@ -55,10 +63,66 @@ export const registerUser = createAsyncThunk(
       });
 
       toast.success("Registro feito com sucesso!");
-      return user; // Retorna o objeto user após o registro
+      return user;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.message); // Acessa o erro corretamente
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const loginUser = createAsyncThunk(
+  "users/loginUser",
+  async (user, { rejectWithValue }) => {
+    try {
+      if (!user.email || !user.password) {
+        throw new Error("Email e senha são obrigatórios");
+      }
+
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", user.email),
+        where("password", "==", user.password)
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        throw new Error("Usuário não encontrado ou senha incorreta");
+      }
+
+      const userDoc = querySnapshot.docs[0];
+      const userData = userDoc.data();
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...userData,
+          id: userDoc.id,
+        })
+      );
+
+      return {
+        ...userData,
+        id: userDoc.id,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const verifyAuthAndFetchUser = createAsyncThunk(
+  "users/verifyAuthAndFetchUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        throw new Error("Usuário não encontrado no local storage");
+      }
+
+      return JSON.parse(storedUser);
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -78,12 +142,23 @@ const UserSlice = createSlice({
       state.loading = true;
     },
     signOut: (state) => {
+      // Limpar local storage
+      localStorage.removeItem("user");
+
+      // Limpar estado
+      state.uid = "";
       state.value = null;
-      state.token = null;
-      state.userID = null;
-      state.name = null;
-      state.email = null;
-      state.photoURL = null;
+      state.connections = "";
+      state.current_position = "";
+      state.description = "";
+      state.email = "";
+      state.name = "";
+      state.photoURL = "";
+      state.locality = "";
+      state.password = "";
+      state.qualification = "";
+      state.skills_tags = [];
+      state.creation_date = "";
       state.userLoaded = false;
       state.loading = false;
       toast.success("Logout realizado com sucesso");
@@ -146,6 +221,65 @@ const UserSlice = createSlice({
         registerStatus: "rejected",
         registerError: action.payload,
       };
+    });
+
+    builder.addCase(loginUser.pending, (state) => {
+      return { ...state, loginStatus: "pending" };
+    });
+
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      const user = action.payload;
+      state.value = user;
+      state.photoURL = user.photoURL;
+      state.connections = user.connections;
+      state.current_position = user.current_position;
+      state.description = user.description;
+      state.email = user.email;
+      state.name = user.name;
+      state.qualification = user.qualification;
+      state.skills_tags = user.skills_tags;
+      state.creation_date = user.creation_date;
+      state.loginStatus = "fulfilled";
+      state.loginError = "";
+      toast.success("Login realizado com sucesso!");
+    });
+
+    builder.addCase(loginUser.rejected, (state, action) => {
+      toast.error(action.payload || "Erro ao fazer login");
+      return {
+        ...state,
+        loginStatus: "rejected",
+        loginError: action.payload,
+      };
+    });
+
+    builder.addCase(verifyAuthAndFetchUser.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(verifyAuthAndFetchUser.fulfilled, (state, action) => {
+      const user = action.payload;
+      state.value = user;
+      state.uid = user.id;
+      state.name = user.name;
+      state.email = user.email;
+      state.photoURL = user.photoURL;
+      state.current_position = user.current_position;
+      state.description = user.description;
+      state.locality = user.locality;
+      state.qualification = user.qualification;
+      state.skills_tags = user.skills_tags;
+      state.creation_date = user.creation_date;
+      state.userLoaded = true;
+      state.loading = false;
+      state.loginStatus = "fulfilled";
+      state.loginError = "";
+    });
+
+    builder.addCase(verifyAuthAndFetchUser.rejected, (state, action) => {
+      state.loading = false;
+      state.loginStatus = "rejected";
+      state.loginError = action.payload;
     });
   },
 });
