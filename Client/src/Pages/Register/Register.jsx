@@ -7,11 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../App-config-teste/user-slice";
 import { Timestamp } from "firebase/firestore";
 import { googleSignIn } from "../../App-config-teste/user-slice";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.value);
+
+  if(user){
+    return <Navigate to={"/feed"} />
+  }
 
   const interests = [
     "Ensino Superior",
@@ -45,12 +51,6 @@ const Register = () => {
     "História",
     "Moda",
   ];
-
- /*  useEffect(() => {
-    if (auth.id) {
-      navigate("/home");
-    }
-  }, [auth.id, navigate]); */
 
   const handleClickRegister = async (e) => {
     const user = { ...e, 
