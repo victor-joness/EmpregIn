@@ -4,18 +4,22 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../App-config-teste/user-slice";
+import { Navigate } from "react-router-dom";
+
 
 const Login = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  // Validações com Yup
+  const user = useSelector((state) => state.user.value);
+
+  if(user){
+    return <Navigate to={"/feed"} />
+  }
+
   const validationLogin = yup.object().shape({
-    name: yup
-      .string()
-      .min(3, "Seu nome deve ter pelo menos 3 caracteres")
-      .required("Este campo é obrigatório"),
+    email: yup.string().email("Email inválido").required("Campo obrigatório"),
     password: yup
       .string()
       .min(6, "Sua senha deve ter pelo menos 6 caracteres")
@@ -24,10 +28,8 @@ const Login = () => {
 
   const handleClickLogin = async (values) => {
     try {
-      console.log(values);
-      // Adicione o código de login aqui
-      // dispatch(loginUser(values));
-      // navigate("/home");
+      dispatch(loginUser(values));
+      navigate("/feed");
     } catch (err) {
       console.log(err);
     }
@@ -45,7 +47,7 @@ const Login = () => {
         <h1 className="title">Login</h1>
         <Formik
           initialValues={{
-            name: "",
+            email: "",
             password: "",
           }}
           validationSchema={validationLogin}
@@ -55,12 +57,12 @@ const Login = () => {
         >
           <Form className="form">
             <div className="item-form-container">
-              <p>Nome</p>
+              <p>Email</p>
               <Field
                 type="text"
-                id="name"
-                name="name"
-                placeholder="Nome de Usuário"
+                id="email"
+                name="email"
+                placeholder="Email de Usuário"
               />
               <ErrorMessage
                 name="name"
