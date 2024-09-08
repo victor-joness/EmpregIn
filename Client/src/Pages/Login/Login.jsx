@@ -10,70 +10,104 @@ const Login = () => {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  //ele tenta pegar o auth no useSelect, caso tenha é pq ainda tem um user logado, então ele só faz o redirecionamento.
-/*   useEffect(() => {
-    if (auth.id) {
-      navigate("/home");
-    }
-  }, [auth.id, navigate]); */
-
-  /* const [user, setUser] = useState({
-    userID: "",
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  }); */
-
-  const handleClickLogin = async () => {
-    try {
-      /* dispatch(loginUser(user));
-      //so ser o register for feito
-      navigate("/home"); */
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //fazer as validações no front, parar não sobrecarrecar o back, mas o ideal é fazer no backend
+  // Validações com Yup
   const validationLogin = yup.object().shape({
     name: yup
       .string()
       .min(3, "Seu nome deve ter pelo menos 3 caracteres")
       .required("Este campo é obrigatório"),
-    email: yup
-      .string()
-      .email("insira um email valido")
-      .required("Este campo é obrigatório"),
     password: yup
       .string()
       .min(6, "Sua senha deve ter pelo menos 6 caracteres")
       .required("Este campo é obrigatório"),
-    confirmPassword: yup
-      .string()
-      .required("Este campo é obrigatório")
-      .test("passwords-match", "A senha deve ser igual", function (value) {
-        return this.parent.password === value;
-      }),
   });
 
-  const user = useSelector((state) => state.user.value);
+  const handleClickLogin = async (values) => {
+    try {
+      console.log(values);
+      // Adicione o código de login aqui
+      // dispatch(loginUser(values));
+      // navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  //só pode uma div, então faz tudo dentro dessa ou <div>
   return (
     <div className="login-container">
-      <img src="/Images/logo_grande.png" alt="logo" />
-  <h2>Login</h2>
-  <form>
-    <input type="text" placeholder="Nome de usuário" required />
-    <input type="password" placeholder="Senha" required />
-    <button type="submit" className="login">Entrar</button>
+      <div className="form-container">
+        <div className="logo-container">
+          <span className="logo">
+            Empreg
+            <img src="Images/logo.svg" alt="Logo da Aplicação" />
+          </span>
+        </div>
+        <h1 className="title">Login</h1>
+        <Formik
+          initialValues={{
+            name: "",
+            password: "",
+          }}
+          validationSchema={validationLogin}
+          onSubmit={(values) => {
+            handleClickLogin(values);
+          }}
+        >
+          <Form className="form">
+            <div className="item-form-container">
+              <p>Nome</p>
+              <Field
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Nome de Usuário"
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className="error-message"
+              />
+            </div>
 
-   <h3>Ainda não tem uma conta?</h3>
-   <br></br>
-   <a href="">Registrar-se</a>
-  </form>
-</div>
+            <div className="item-form-container">
+              <p>Senha</p>
+              <Field
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Informe sua Senha"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="error-message"
+              />
+            </div>
+
+            <div className="button-container">
+              <button type="submit" className="button-login">
+                Entrar
+              </button>
+              <span className="item-our">ou</span>
+              <button
+                type="button"
+                onClick={() => dispatch(googleSignIn())}
+                className="google"
+              >
+                <img src="/Images/google.svg" alt="google" />
+                Entrar com o Google
+              </button>
+            </div>
+
+            <div className="navigate-login-container">
+              <p>
+                Ainda não tem conta? <a href="/register">Registre-se</a>
+              </p>
+            </div>
+          </Form>
+        </Formik>
+      </div>
+    </div>
   );
 };
 
