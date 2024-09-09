@@ -81,7 +81,9 @@ const NavBar = () => {
         </div>
         <div className="box_accounts_info">
           <div className="box_info_name">
-            <h2 className="profile_name">{user && user.displayName || user?.name}</h2>
+            <h2 className="profile_name">
+              {(user && user.displayName) || user?.name}
+            </h2>
           </div>
           <div className="box_info_views">
             <p className="views_today">367 Conexões</p>

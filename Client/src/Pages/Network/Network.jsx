@@ -13,6 +13,8 @@ import {
 
 import { useSelector } from "react-redux";
 
+import Footer from "../../Components/Footer/Footer";
+
 const Network = (props) => {
   document.title = "Rede | EmpregIn";
 
@@ -180,7 +182,9 @@ const Network = (props) => {
                   </button>
                 </div>
 
-                <p>Você tem {user?.connections_received.length} novas conexões</p>
+                <p>
+                  Você tem {user?.connections_received.length} novas conexões
+                </p>
                 <div className="network_users">
                   {user?.connections_received.map((user) => (
                     <div className="network_users_info">
@@ -299,9 +303,13 @@ const Network = (props) => {
 
               <div className="grid-feed-list">
                 {user.skills_tags.map((interest, index) => (
-                  <div className="grid-item" key={index} style={{ margin: "10px" }}>
+                  <div
+                    className="grid-item"
+                    key={index}
+                    style={{ margin: "10px" }}
+                  >
                     <div className="interest-info">
-                      <span style={{ margin:'auto' }}>#{interest}</span>
+                      <span style={{ margin: "auto" }}>#{interest}</span>
                     </div>
                   </div>
                 ))}
@@ -312,6 +320,7 @@ const Network = (props) => {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
