@@ -13,19 +13,28 @@ import Feed from "./Pages/Feed/Feed";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
-import { signIn } from "./App-config-teste/user-slice";
+import { signIn, verifyAuthAndFetchUser  } from "./App-config-teste/user-slice";
 import Network from "./Pages/Network/Network";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      dispatch(verifyAuthAndFetchUser());
+    }
+
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(signIn(user));
       }
     });
-  });
+
+    return () => {
+      unsubscribeAuth();
+    };
+  }, [dispatch]);
   
   return (
     <div className="app">

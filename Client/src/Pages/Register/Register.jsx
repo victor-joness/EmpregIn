@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -7,11 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../App-config-teste/user-slice";
 import { Timestamp } from "firebase/firestore";
 import { googleSignIn } from "../../App-config-teste/user-slice";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.value);
+
+  if(user){
+    return <Navigate to={"/feed"} />
+  }
+
+  //TODO permitir apenas emails novos
 
   const interests = [
     "Ensino Superior",
@@ -46,15 +54,11 @@ const Register = () => {
     "Moda",
   ];
 
- /*  useEffect(() => {
-    if (auth.id) {
-      navigate("/home");
-    }
-  }, [auth.id, navigate]); */
-
   const handleClickRegister = async (e) => {
     const user = { ...e, 
       connections: [],
+      connections_send: [],
+      connections_received: [],
       current_position: "",
       description: "",
       locality: "",

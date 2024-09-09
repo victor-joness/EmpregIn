@@ -26,42 +26,32 @@ const Feed_Main = () => {
   const [showComments, setShowComments] = useState([]);
 
   useEffect(() => {
-    
-    const auth = getAuth();
-    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
 
-        const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
-          const postsData = [];
-          querySnapshot.forEach((doc) => {
-            postsData.push({ id: doc.id, id_document: doc.id, ...doc.data() });
-          });
-          setPosts(postsData);
-        });
-
-        return () => {
-          unsubscribeSnapshot();
-        };
-      } else {
-        setUser(null);
-      }
+    const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
+      const postsData = [];
+      querySnapshot.forEach((doc) => {
+        postsData.push({ id: doc.id, id_document: doc.id, ...doc.data() });
+      });
+      setPosts(postsData);
     });
-
-    return () => {
-      unsubscribeAuth();
-    };
   }, []);
 
   const fetchLikes = async (postDocumentId, likes) => {
-    const userLike = { name: user.name, email: user.email, photoURL: user.photoURL };
+    const userLike = {
+      name: user.name,
+      email: user.email,
+      photoURL: user.photoURL,
+    };
 
     try {
       const updatedLikes = likes.some((l) => l.email === user.email)
         ? likes.filter((l) => l.email !== user.email)
         : [userLike, ...likes];
 
-      await updateDoc(doc(db, "posts", postDocumentId), { likes: updatedLikes });
+      await updateDoc(doc(db, "posts", postDocumentId), {
+        likes: updatedLikes,
+      });
     } catch (error) {
       console.error("Error updating likes:", error);
     }
@@ -109,7 +99,7 @@ const Feed_Main = () => {
       console.error("Error adding comment:", error);
     }
   };
-  
+
   return (
     <div className="container_Feed_Main">
       <div className="share-box">
@@ -173,20 +163,25 @@ const Feed_Main = () => {
               <div className="SocialContents">
                 <p>{post.likes ? post.likes.length : 0} Likes </p>
                 <p
-                  onClick={() => setShowComments((prev) =>
-                    prev.includes(post.id)
-                      ? prev.filter((id) => id !== post.id)
-                      : [...prev, post.id]
-                  )}
+                  onClick={() =>
+                    setShowComments((prev) =>
+                      prev.includes(post.id)
+                        ? prev.filter((id) => id !== post.id)
+                        : [...prev, post.id]
+                    )
+                  }
                 >
-                  {post.comments ? post.comments.length : 0} <a style={{ cursor: "pointer" }}>Comentários</a>
+                  {post.comments ? post.comments.length : 0}{" "}
+                  <a style={{ cursor: "pointer" }}>Comentários</a>
                 </p>
               </div>
 
               <div className="social-actions">
                 <button
                   className={`like-button ${
-                    post.likes?.some((l) => l.email === user.email) ? "active" : ""
+                    post.likes?.some((l) => l.email === user.email)
+                      ? "active"
+                      : ""
                   }`}
                   onClick={() => fetchLikes(post.id_document, post.likes || [])}
                 >
@@ -204,11 +199,13 @@ const Feed_Main = () => {
 
                 <button
                   className="comment-button"
-                  onClick={() => setShowComments((prev) =>
-                    prev.includes(post.id)
-                      ? prev.filter((id) => id !== post.id)
-                      : [...prev, post.id]
-                  )}
+                  onClick={() =>
+                    setShowComments((prev) =>
+                      prev.includes(post.id)
+                        ? prev.filter((id) => id !== post.id)
+                        : [...prev, post.id]
+                    )
+                  }
                 >
                   <img src="/Images/comment.svg" alt="comment" />
                   <span>Comentário</span>
@@ -225,15 +222,15 @@ const Feed_Main = () => {
                 </button>
               </div>
               {showComments.includes(post.id) && (
-                  <Comentario
-                    photo={user?.Img}
-                    comments={post.comments || []}
-                    user={user}
-                    postID={post.id}
-                    onAddComment={handleAddComment}
-                    documentId={post.id_document}
-                  />
-                )}
+                <Comentario
+                  photo={user?.Img}
+                  comments={post.comments || []}
+                  user={user}
+                  postID={post.id}
+                  onAddComment={handleAddComment}
+                  documentId={post.id_document}
+                />
+              )}
             </div>
           ))}
         </div>

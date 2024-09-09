@@ -11,7 +11,7 @@ const Feed = (props) => {
   document.title = "Feed | EmpregIn";
 
   return (
-    <div className="container">
+    <div className="feed_container">
       <NavBar />
       <div className="layout">
         <Feed_Main />

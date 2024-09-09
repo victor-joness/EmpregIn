@@ -18,9 +18,6 @@ import { signOut } from "../../App-config-teste/user-slice";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-  const registerStatus = useSelector((state) => state.user.registerStatus);
-
-  console.log(registerStatus);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

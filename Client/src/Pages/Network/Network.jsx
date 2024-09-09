@@ -180,9 +180,9 @@ const Network = (props) => {
                   </button>
                 </div>
 
-                <p>Você tem 2 novas conexões</p>
+                <p>Você tem {user?.connections_received.length} novas conexões</p>
                 <div className="network_users">
-                  {usersRecebidos.map((user) => (
+                  {user?.connections_received.map((user) => (
                     <div className="network_users_info">
                       <div className="box_account">
                         <div className="box_profile_image">
@@ -246,9 +246,9 @@ const Network = (props) => {
                   </button>
                 </div>
 
-                <p>Você enviou 2 conexões</p>
+                <p>Você enviou {user.connections_send.length} conexões</p>
                 <div className="network_users">
-                  {usersEnviados.map((user) => (
+                  {user.connections_send.map((user) => (
                     <div className="network_users_info">
                       <div className="box_account">
                         <div className="box_profile_image">
@@ -298,7 +298,7 @@ const Network = (props) => {
               </p>
 
               <div className="grid-feed-list">
-                {interests.map((interest, index) => (
+                {user.skills_tags.map((interest, index) => (
                   <div className="grid-item" key={index} style={{ margin: "10px" }}>
                     <div className="interest-info">
                       <span style={{ margin:'auto' }}>#{interest}</span>
