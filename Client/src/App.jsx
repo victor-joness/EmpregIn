@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { signIn, verifyAuthAndFetchUser  } from "./App-config-teste/user-slice";
 import Network from "./Pages/Network/Network";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/rede" element={<Network />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
       </BrowserRouter>

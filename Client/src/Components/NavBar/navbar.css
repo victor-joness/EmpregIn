@@ -12,8 +12,6 @@ ul {
   padding: 0;
 }
 
-/* Estilização dos Elementos */
-
 .header {
   position: fixed;
   top: 0;
@@ -181,3 +179,45 @@ ul {
   font-weight: 700;
   text-transform: uppercase;
 }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  width: 40%;
+  max-width: 600px;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content li {
+  margin-bottom: 1.5rem;
+}
+
+.modal-content h3 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.modal-content p {
+  margin: 0;
+  color: #555;
+  font-size: 1.3rem;
+}
+

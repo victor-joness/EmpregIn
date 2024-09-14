@@ -1,0 +1,515 @@
+.profile-container {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding-bottom: 50px;
+  padding-top: 60px;
+}
+
+.profile-layout {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px; 
+}
+
+.profile-header {
+  position: relative;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.cover-photo img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.edit-profile-btn {
+  display: flex; /* Ativa o flexbox */
+  align-items: center; /* Centraliza verticalmente o ícone e o texto */
+  gap: 12px; /* Espaçamento entre o ícone e o texto */
+  position: absolute; 
+  top: 40px;
+  right: 40px;
+  box-shadow: inset 0 0 0 2px #40b189;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.button-icon {
+  width: 15px; /* Largura desejada da imagem */
+  height: 15px; /* Altura desejada da imagem */
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+  margin-top: 10px; /* Espaço em relação ao conteúdo acima */
+}
+
+
+.profile-info-container {
+  display: flex;
+  align-items: flex-start; 
+  margin-top: -60px;
+  padding: 0 20px;
+}
+
+.profile-image {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.profile-image img {
+  max-width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-details {
+  flex: 1;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 75px;
+}
+
+.profile-name{
+  font-size: 19px;
+}
+
+.profile-title{
+  font-size: 15px;
+}
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.contact-info-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #067d71;
+  color: #fff;
+  cursor: pointer;
+  display: block; 
+}
+
+.connections-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connections-count {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #40b189;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px #067d71;
+  display: block; 
+}
+
+.about-section{
+  font-size: 15px;
+  padding: 20px;
+}
+
+.see-more{
+  margin-top: 15px;
+  color: #067d71;
+  font-weight: 600;
+}
+.projects-section,
+.skills-section,
+.experience-section,
+.education-section {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.about-section h2,
+.projects-section h2,
+.skills-section h2,
+.experience-section h2,
+.education-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.project-card {
+  flex: 1 1 calc(30% - 30px);
+  max-width: calc(30% - 30px);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.skills-list {
+  display: flex;
+  gap: 30px;
+}
+
+.skill-card {
+  flex: 1 1 calc(33.333% - 30px);
+  max-width: calc(33.333% - 30px);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.skill-card p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.endorsement-count {
+  display: inline-block;
+  background-color: #0073b1;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.endorsers {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.endorsers img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: -10px;
+}
+
+.show-all {
+  display: inline-block;
+  margin-top: 30px;
+  color: #0073b1;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.experience-item,
+.education-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.experience-logo img,
+.education-logo img {
+  max-width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-right: 20px; 
+}
+
+.experience-details,
+.education-details {
+  flex-grow: 1;
+}
+
+.experience-details h3,
+.education-details h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.experience-details p,
+.education-details p {
+  font-size: 14px;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .project-card,
+  .skill-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 10px;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-content textarea {
+  resize: vertical;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #40b189;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #ccc;
+}
+
+.add-experience-btn {
+  margin-left: auto;
+  padding: 10px 15px;
+  background-color: #067d71;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.experience-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.experience-logo img {
+  max-width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #40b189;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #ccc;
+}
+
+.experience-logo img {
+  width: 80px; 
+  height: 80px; 
+  object-fit: cover; 
+  border-radius: 50%; 
+}
+
+.section-header {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
+  margin-bottom: 20px; 
+}
+
+.add-experience-btn {
+  padding: 10px 15px;
+ 
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.delete-experience-btn {
+  margin-left: 20px; 
+  padding: 5px 10px; 
+  border: none;
+  border-radius: 5px;
+  background-color: #e57373; 
+  color: #fff; 
+  cursor: pointer;
+}
+
+.delete-experience-btn:hover {
+  background-color: #c62828; 
+}
+
+.delete-education-btn{
+  margin-left: 20px; 
+  padding: 5px 10px; 
+  border: none;
+  border-radius: 5px;
+  background-color: #e57373; 
+  color: #fff; 
+  cursor: pointer;
+}
+
+.delete-education-btn:hover {
+  background-color: #c62828; 
+}
+
+.add-education-btn {
+  padding: 10px 15px;
+ 
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.contact-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.contact-form-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  max-width: 100%;
+  position: relative;
+}
+
+.contact-entry {
+  margin-bottom: 10px;
+}
+
+.contact-form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-contact-btn {
+  margin-top: 10px;
+}
+
+.project-logo img {
+  max-width: 60px; /* Largura máxima da imagem */
+  height: auto; /* Mantém a proporção da altura */
+  object-fit: contain; /* Ajusta a imagem para caber na caixa sem distorcer */
+}
+
+.small-project-logo {
+  max-width: 60px;
+  height: auto;
+  object-fit: contain;
+}
