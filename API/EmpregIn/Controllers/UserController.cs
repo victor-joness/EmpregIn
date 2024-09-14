@@ -53,28 +53,30 @@ namespace EmpregIn.Controllers
             // Obtém todos os documentos da coleção "users"
             var snapshot = await usersRef.GetSnapshotAsync();
 
-            // Itera sobre cada documento na coleção "users"
             foreach (var document in snapshot.Documents)
             {
                 if (document.Exists)
                 {
-                    // Mapeia os dados do documento para o modelo User
-                    var user = new User
+                    User user = new User
                     {
-                        Uid = document.Id,
-                        Name = document.GetValue<string>("name"),
+                        Connections = document.GetValue<List<User>>("connections"),
+                        ConnectionsReceived = document.GetValue<List<User>>("connections_received"),
+                        ConnectionsSend = document.GetValue<List<User>>("connections_send"),
+                        CurrentPosition = document.GetValue<string>("current_position"),
+                        Description = document.GetValue<string>("description"),
                         Email = document.GetValue<string>("email"),
-                        Connections = document.GetValue<int>("connections"),
-                        SkillsTags = document.GetValue<List<string>>("skills_tags"),
-                        // Adicione os outros campos conforme necessário
+                        Uid = document.Id,
+                        Locality = document.GetValue<string>("locality"),
+                        Name = document.GetValue<string>("name"),
+                        PhotoURL = document.GetValue<string>("photoURL"),
+                        Qualification = document.GetValue<string>("qualification"),
+                        SkillsTags = document.GetValue<List<string>>("skills_tags")
                     };
 
-                    // Adiciona o usuário ao dicionário
                     usersDict[document.Id] = user;
                 }
             }
 
-            // Retorna o dicionário de usuários
             return usersDict;
         }
     }
