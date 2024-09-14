@@ -5,3 +5,4 @@
 *.cache
 /API/EmpregIn/obj
 /API/EmpregIn/bin
+API/EmpregIn/.vs
