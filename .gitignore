@@ -1,0 +1,8 @@
+
+*.v2
+*.vsidx
+*.bin
+*.cache
+/API/EmpregIn/obj
+/API/EmpregIn/bin
+API/EmpregIn/.vs
