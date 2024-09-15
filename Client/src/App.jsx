@@ -9,19 +9,20 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Feed from "./Pages/Feed/Feed";
+import Network from "./Pages/Network/Network";
+import Algoritm from "./Pages/Algoritm/Algoritm";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
-import { signIn, verifyAuthAndFetchUser  } from "./App-config-teste/user-slice";
-import Network from "./Pages/Network/Network";
-import ProfilePage from "./Pages/Profile/ProfilePage";
+import { signIn, verifyAuthAndFetchUser } from "./App-config-teste/user-slice";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       dispatch(verifyAuthAndFetchUser());
     }
@@ -36,7 +37,7 @@ function App() {
       unsubscribeAuth();
     };
   }, [dispatch]);
-  
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -50,6 +51,7 @@ function App() {
             <Route path="/feed" element={<Feed />} />
             <Route path="/rede" element={<Network />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/algoritmo" element={<Algoritm />} />
           </Routes>
         </div>
       </BrowserRouter>
