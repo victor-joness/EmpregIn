@@ -22,11 +22,16 @@
 }
 
 .card-background {
-  background: url("/Images/card-bg.svg");
   background-position: center;
   background-size: 462px;
-  height: 54px;
+  height: 100px;
   margin: -12px -12px 0;
+}
+
+.card-background img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .photo {

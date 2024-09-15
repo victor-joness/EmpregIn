@@ -12,11 +12,10 @@
   column-gap: 25px;
   row-gap: 25px;
   max-width: 1128px;
-  height: 75vh;
+  height: 100vh;
   margin: 20px auto;
-  padding-bottom: 10rem;
-  margin-bottom: 0px;
 }
+
 
 .network_recebidas_enviadas {
   display: flex;
@@ -133,6 +132,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 10rem;
+  gap: 1rem;
 }
 
 .network_buttons_container button {

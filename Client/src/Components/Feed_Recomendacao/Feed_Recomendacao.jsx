@@ -10,7 +10,7 @@ import { db } from "../../../firebase";
 import { toast } from "react-toastify";
 
 const Feed_Recomendacao = (props) => {
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const interests = [
@@ -51,8 +51,8 @@ const Feed_Recomendacao = (props) => {
   }, [user]);
 
   const handleInterestClick = async (interest) => {
-    const userDocRef = doc(db, "users", user.id);
-  
+    const userDocRef = doc(db, "users", user.uid);
+
     try {
       await updateDoc(userDocRef, {
         skills_tags: arrayUnion(interest),
@@ -105,7 +105,7 @@ const Feed_Recomendacao = (props) => {
       </div>
 
       <div className="banner-card">
-        <img src="/Images/Gabigol-Flamengo.jpg" alt="Banner" />
+        <img src="https://www.ufc.br/images/_images/a_universidade/identidade_visual/brasao/brasao3_horizontal_cinza_72dpi.png" alt="Banner" />
       </div>
     </div>
   );

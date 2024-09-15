@@ -10,8 +10,9 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Feed from "./Pages/Feed/Feed";
 import Network from "./Pages/Network/Network";
-import Algoritm from "./Pages/Algoritm/Algoritm";
 import ProfilePage from "./Pages/Profile/ProfilePage";
+import Conexoes from "./Pages/Conexões/Conexoes";
+import Algoritm from "./Pages/Algoritm/Algoritm";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
@@ -38,6 +39,7 @@ function App() {
     };
   }, [dispatch]);
 
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -51,7 +53,8 @@ function App() {
             <Route path="/feed" element={<Feed />} />
             <Route path="/rede" element={<Network />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/algoritmo" element={<Algoritm />} />
+            <Route path="/conexoes" element={<Conexoes />} />
+            <Route path="/algortimo" element={<Algoritm />} />
           </Routes>
         </div>
       </BrowserRouter>

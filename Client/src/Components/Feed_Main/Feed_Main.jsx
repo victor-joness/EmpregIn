@@ -16,6 +16,7 @@ import ReactPlayer from "react-player";
 import "./Feed_Main.css";
 import Comentario from "../Comentario/Comentario";
 import Post_Modal from "../Post_Modal/Post_Modal";
+import { toast } from "react-toastify";
 
 const Feed_Main = () => {
   const user = useSelector((state) => state.user);
@@ -57,7 +58,7 @@ const Feed_Main = () => {
     }
   };
 
-  const handleDelete = useCallback(
+  const handleDeletePost = useCallback(
     async (id) => {
       setLoading(true);
       try {
@@ -65,6 +66,7 @@ const Feed_Main = () => {
       } catch (error) {
         console.error("Error deleting post:", error);
       } finally {
+        toast("Post deletado");
         setLoading(false);
       }
     },
@@ -142,9 +144,16 @@ const Feed_Main = () => {
                     </span>
                   </div>
                 </a>
-                <button>
-                  <img src="/Images/ellipsis.svg" alt="options" />
-                </button>
+
+                {user.email == post.user.email && (
+                  <button className="delete-post-button">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQubXSwM5i62z5ZsAhDsg1db5y7_DPEjLPRYQ&s"
+                      alt="delete"
+                      onClick={() => handleDeletePost(post.id_document)}
+                    />
+                  </button>
+                )}
               </div>
 
               <div className="description">

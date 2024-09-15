@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavBar from "../../Components/NavBar/Navbar";
 import "./Network.css";
-import { MdArrowOutward } from "react-icons/md";
 import {
   FaUserFriends,
   FaUserPlus,
@@ -11,14 +10,18 @@ import {
   FaHashtag,
 } from "react-icons/fa";
 
+import { doc, updateDoc, arrayRemove, arrayUnion, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { toast } from "react-toastify";
+
 import { useSelector } from "react-redux";
 
 import Footer from "../../Components/Footer/Footer";
 
-const Network = (props) => {
+const Network = ({}) => {
   document.title = "Rede | EmpregIn";
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user);
 
   const [RecebidaOuEnviada, setRecebidaOuEnviada] = useState("Recebidas");
 
@@ -109,6 +112,65 @@ const Network = (props) => {
     },
   ];
 
+  const HandleAcceptConnection = async (userId, currentUserId) => {
+    try {
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+  
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+  
+        const currentUserRef = doc(db, "users", currentUserId);
+  
+        const currentUserSnap = await getDoc(currentUserRef);
+        const currentUserData = currentUserSnap.data();
+  
+        const receivedConnections = currentUserData.connections_received || [];
+        const connectionToRemove = receivedConnections.find(
+          (connection) => connection.id === userId
+        );
+  
+        if (connectionToRemove) {
+          await updateDoc(currentUserRef, {
+            connections: arrayUnion(userData),
+            connections_received: arrayRemove(connectionToRemove)
+          });
+
+          await updateDoc(userRef, {
+            connections: arrayUnion(currentUserData),
+            connections_send: arrayRemove(currentUserData)
+          });
+  
+          toast("Conexão aceita!");
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          console.error("Conexão não encontrada em connections_received");
+        }
+      } else {
+        console.error("Usuário não encontrado");
+      }
+    } catch (error) {
+      console.error("Erro ao aceitar a conexão:", error);
+    }
+  };
+
+  const HandleRejectConnection = async (userId, currentUserId) => {
+    try {
+      const currentUserRef = doc(db, "users", currentUserId);
+
+      await updateDoc(currentUserRef, {
+        connections_received: arrayRemove(userId),
+      });
+
+      toast("Conexão rejeitada!");
+    } catch (error) {
+      console.error("Erro ao rejeitar a conexão:", error);
+    }
+  };
+
   const [selectedButton, setSelectedButton] = useState("Conexões");
 
   const handleButtonClick = (buttonName) => {
@@ -186,14 +248,14 @@ const Network = (props) => {
                   Você tem {user?.connections_received.length} novas conexões
                 </p>
                 <div className="network_users">
-                  {user?.connections_received.map((user) => (
-                    <div className="network_users_info">
+                  {user?.connections_received.map((userConnection) => (
+                    <div className="network_users_info" key={userConnection.id}>
                       <div className="box_account">
                         <div className="box_profile_image">
                           <img
                             src={
-                              user?.photoURL
-                                ? user.photoURL
+                              userConnection?.photoURL
+                                ? userConnection.photoURL
                                 : "src/assets/profile_image.png"
                             }
                             alt="Foto de Perfil"
@@ -202,17 +264,17 @@ const Network = (props) => {
                         <div className="box_accounts_info">
                           <div className="box_info_name">
                             <h2 className="profile_name">
-                              {user && user.name}
+                              {userConnection.name}
                             </h2>
                           </div>
                           <div className="box_info_cargo">
-                            <h2 className="profile_cargo">
-                              Cargo: {user && user.cargo}
-                            </h2>
+                            {/* <h2 className="profile_cargo">
+                              Qualificação: {user.qualification}
+                            </h2> */}
                           </div>
                           <div className="box_info_views">
                             <p className="views_today">
-                              Conexões: {user.conexoes}
+                              Conexões: {userConnection.connections.length}
                             </p>
                             {/* <span className="new_followers">
                           +32 <MdArrowOutward />
@@ -220,8 +282,28 @@ const Network = (props) => {
                           </div>
                         </div>
                         <div className="network_users_btns">
-                          <button className="network_users_btn">Aceitar</button>
-                          <button className="network_users_btn">Recusar</button>
+                          <button
+                            className="network_users_btn"
+                            onClick={() =>
+                              HandleAcceptConnection(
+                                userConnection.id,
+                                user.uid
+                              )
+                            }
+                          >
+                            Aceitar
+                          </button>
+                          <button
+                            className="network_users_btn"
+                            onClick={() =>
+                              HandleRejectConnection(
+                                userConnection.id,
+                                user.uid
+                              )
+                            }
+                          >
+                            Recusar
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -253,7 +335,7 @@ const Network = (props) => {
                 <p>Você enviou {user.connections_send.length} conexões</p>
                 <div className="network_users">
                   {user.connections_send.map((user) => (
-                    <div className="network_users_info">
+                    <div className="network_users_info" key={user.id}>
                       <div className="box_account">
                         <div className="box_profile_image">
                           <img
@@ -267,28 +349,26 @@ const Network = (props) => {
                         </div>
                         <div className="box_accounts_info">
                           <div className="box_info_name">
-                            <h2 className="profile_name">
-                              {user && user.name}
-                            </h2>
+                            <h2 className="profile_name">Nome: {user.name}</h2>
                           </div>
                           <div className="box_info_cargo">
-                            <h2 className="profile_cargo">
-                              Cargo: {user && user.cargo}
-                            </h2>
+                            {/* <h2 className="profile_cargo">
+                              Qualificação: {user.qualification}
+                            </h2> */}
                           </div>
                           <div className="box_info_views">
                             <p className="views_today">
-                              Conexões: {user.conexoes}
+                              Conexões: {user.connections.length}
                             </p>
                             {/* <span className="new_followers">
                           +32 <MdArrowOutward />
                         </span> */}
                           </div>
                         </div>
-                        <div className="network_users_btns">
+                        {/* <div className="network_users_btns">
                           <button className="network_users_btn">Aceitar</button>
                           <button className="network_users_btn">Recusar</button>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   ))}
