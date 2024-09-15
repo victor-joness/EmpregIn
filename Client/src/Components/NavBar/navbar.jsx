@@ -29,7 +29,7 @@ const NavBar = () => {
   }
 
   const handleProfileClick = () => {
-    navigate('/profile');
+    navigate("/profile");
   };
 
   // Simulação de resultados de busca
@@ -44,7 +44,7 @@ const NavBar = () => {
     setSearchTerm(term);
 
     if (term.length > 0) {
-      const results = users.filter(user =>
+      const results = users.filter((user) =>
         user.name.toLowerCase().includes(term.toLowerCase())
       );
       setSearchResults(results);
@@ -104,14 +104,14 @@ const NavBar = () => {
         <div className="box_profile_image" onClick={handleProfileClick}>
           <img
             src={
-              user?.photoURL ? user.photoURL : 'src/assets/profile_image.png'
+              user?.photoURL ? user.photoURL : "src/assets/profile_image.png"
             }
             alt="Foto de Perfil"
           />
         </div>
         <div className="box_accounts_info">
           <div className="box_info_name">
-            <h2 className="profile_name">
+            <h2 className="profile_name" onClick={handleProfileClick}>
               {(user && user.displayName) || user?.name}
             </h2>
           </div>
