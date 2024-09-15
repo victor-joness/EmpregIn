@@ -11,13 +11,12 @@ import Register from "./Pages/Register/Register";
 import Feed from "./Pages/Feed/Feed";
 import Network from "./Pages/Network/Network";
 import Algoritm from "./Pages/Algoritm/Algoritm";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { signIn, verifyAuthAndFetchUser } from "./App-config-teste/user-slice";
-import Network from "./Pages/Network/Network";
-import ProfilePage from "./Pages/Profile/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();

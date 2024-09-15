@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="footer-container">
       <div className="top-container">
         <div className="box-logo">
-          <span className="logo-title">EmpregIn</span>
+          <span className="logo-title">Empreg</span>
           <img src="Images\logo.svg" alt="Logo da Aplicação" />
         </div>
         <div className="box-navigation">
@@ -50,7 +50,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="bottom-container">
-        <span className="logo-title">EmpregIn</span>
+        <span className="logo-title">Empreg</span>
         <img src="Images\logo.svg" alt="Logo da Aplicação" />
         <span className="copyright">&copy; 2024</span>
       </div>
