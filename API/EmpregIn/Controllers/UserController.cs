@@ -9,12 +9,10 @@ namespace EmpregIn.Controllers
     public class UserController : ControllerBase
     {
         private readonly FirebaseService _firebaseService;
-        private readonly BfsService _bfsService;
 
-        public UserController(FirebaseService firebaseService, BfsService bfsService)
+        public UserController(FirebaseService firebaseService)
         {
             _firebaseService = firebaseService;
-            _bfsService = bfsService;
         }
 
         [HttpGet("busca")]
