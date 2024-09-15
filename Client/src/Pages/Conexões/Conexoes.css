@@ -1,0 +1,99 @@
+.container-conexoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 7rem;
+  height: 80vh;
+}
+
+.title-conexoes {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 30px 0;
+  text-align: center;
+  color: #333;
+}
+
+.conexoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.conexoes-card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+}
+
+.conexoes-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.conexoes-card-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.conexoes-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conexoes-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.conexoes-card-name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.conexoes-card-description {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.conexoes-card-email,
+.conexoes-card-qualification {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.conexoes-card-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.conexoes-skill-tag {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.no-connections {
+  font-size: 1.5rem;
+  color: #888;
+}

@@ -18,9 +18,11 @@
   margin-bottom: 20px;
 }
 
-.grid-feed-list {
+.follow-card .grid-feed-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  gap: 15px;
+  gap: 1rem;
   margin-top: 20px;
 }
 

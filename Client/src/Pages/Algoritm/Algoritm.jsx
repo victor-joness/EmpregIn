@@ -10,7 +10,7 @@ import Footer from "../../Components/Footer/Footer";
 const Algoritm = (props) => {
   document.title = "Algoritmo | EmpregIn";
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user);
 
   return (
     <div className="algoritmo-container">

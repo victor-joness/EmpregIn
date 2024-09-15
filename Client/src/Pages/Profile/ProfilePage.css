@@ -1,7 +1,6 @@
 .profile-container {
   width: 100%;
   background-color: #f5f5f5;
-  padding-bottom: 50px;
   padding-top: 60px;
 }
 
@@ -11,7 +10,9 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px; 
+  padding: 20px;
+  margin-bottom: 2rem;
+  margin-top: 1.5rem;
 }
 
 .profile-header {
@@ -31,7 +32,7 @@
   display: flex; /* Ativa o flexbox */
   align-items: center; /* Centraliza verticalmente o ícone e o texto */
   gap: 12px; /* Espaçamento entre o ícone e o texto */
-  position: absolute; 
+  position: absolute;
   top: 40px;
   right: 40px;
   box-shadow: inset 0 0 0 2px #40b189;
@@ -54,10 +55,9 @@
   margin-top: 10px; /* Espaço em relação ao conteúdo acima */
 }
 
-
 .profile-info-container {
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   margin-top: -60px;
   padding: 0 20px;
 }
@@ -81,17 +81,16 @@
   margin-top: 75px;
 }
 
-.profile-name{
+.profile-name {
   font-size: 19px;
 }
 
-.profile-title{
+.profile-title {
   font-size: 15px;
 }
 .profile-actions {
   display: flex;
   flex-direction: column;
- 
 }
 
 .contact-info-btn {
@@ -102,7 +101,7 @@
   background-color: #067d71;
   color: #fff;
   cursor: pointer;
-  display: block; 
+  display: block;
 }
 
 .connections-info {
@@ -121,15 +120,15 @@
   color: #40b189;
   cursor: pointer;
   box-shadow: inset 0 0 0 1px #067d71;
-  display: block; 
+  display: block;
 }
 
-.about-section{
+.about-section {
   font-size: 15px;
   padding: 20px;
 }
 
-.see-more{
+.see-more {
   margin-top: 15px;
   color: #067d71;
   font-weight: 600;
@@ -142,6 +141,16 @@
   border-bottom: 1px solid #e0e0e0;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.section-header {
+  width: 100%;
+}
+
+.skills-section{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .about-section h2,
@@ -182,7 +191,7 @@
 
 .skill-card {
   flex: 1 1 calc(33.333% - 30px);
-  max-width: calc(33.333% - 30px);
+  max-width: calc(40% - 30px);
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -192,8 +201,16 @@
 }
 
 .skill-card p {
-  font-size: 16px;
   font-weight: bold;
+}
+
+.skill-name {
+  font-size: 2rem;
+}
+
+.skill-card-buttons{
+  display: flex;
+
 }
 
 .endorsement-count {
@@ -228,7 +245,8 @@
 }
 
 .experience-item,
-.education-item {
+.education-item,
+.project-item {
   display: flex;
   align-items: flex-start;
   margin-bottom: 30px;
@@ -238,28 +256,32 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
 .experience-logo img,
-.education-logo img {
+.education-logo img,
+.project-logo img {
   max-width: 80px;
   height: 80px;
   object-fit: contain;
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 .experience-details,
-.education-details {
-  flex-grow: 1;
+.education-details,
+.project-details {
+  flex: 1;
+  text-align: left;
 }
 
 .experience-details h3,
-.education-details h3 {
+.education-details h3,
+.project-details h3 {
   font-size: 18px;
   font-weight: bold;
 }
 
 .experience-details p,
-.education-details p {
+.education-details p,
+.project-details p {  
   font-size: 14px;
   color: #777;
 }
@@ -301,10 +323,12 @@
 .modal-content label {
   display: block;
   margin-top: 10px;
+  font-size: 1.5rem;
 }
 
 .modal-content input,
-.modal-content textarea {
+.modal-content textarea,
+.modal-content select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
@@ -341,7 +365,6 @@
 
 .add-experience-btn {
   margin-left: auto;
-  padding: 10px 15px;
   background-color: #067d71;
   color: #fff;
   border: none;
@@ -403,61 +426,77 @@
 }
 
 .experience-logo img {
-  width: 80px; 
-  height: 80px; 
-  object-fit: cover; 
-  border-radius: 50%; 
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .section-header {
   display: flex;
-  align-items: center; 
-  justify-content: space-between; 
-  margin-bottom: 20px; 
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.add-experience-btn {
-  padding: 10px 15px;
- 
+.add-experience-btn, .add-project-btn, .add-experience-btn {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   background-color: #ffffff;
   color: #000000;
   cursor: pointer;
+  display: flex;
+  gap: .5rem;
 }
 
-.delete-experience-btn {
-  margin-left: 20px; 
-  padding: 5px 10px; 
+.delete-experience-btn, .delete-project-btn, .delete-skill-btn{
+  margin-left: 20px;
+  padding: 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #e57373; 
-  color: #fff; 
+  background-color: #e57373;
+  color: #fff;
   cursor: pointer;
 }
 
-.delete-experience-btn:hover {
-  background-color: #c62828; 
-}
-
-.delete-education-btn{
-  margin-left: 20px; 
-  padding: 5px 10px; 
+.edit-project-btn, .edit-skill-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  gap: .5rem;
+  margin-left: 20px;
+  padding: 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #e57373; 
-  color: #fff; 
+  background-color: #067d71;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delete-experience-btn:hover {
+  background-color: #c62828;
+}
+
+.delete-education-btn {
+  margin-left: 20px;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #e57373;
+  color: #fff;
   cursor: pointer;
 }
 
 .delete-education-btn:hover {
-  background-color: #c62828; 
+  background-color: #c62828;
 }
 
 .add-education-btn {
   padding: 10px 15px;
- 
+
   padding: 10px 15px;
   border: none;
   border-radius: 5px;

@@ -4,9 +4,6 @@ import "./Home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { googleSignIn } from "../../App-config-teste/user-slice";
-import { toast } from "react-toastify";
-
-/*________________________________________________________________________________*/
 
 const Home = () => {
   document.title = "Home | EmpregIn";

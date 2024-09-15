@@ -8,10 +8,25 @@ import { FiBook, FiUsers } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
 
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+  getDoc
+} from "firebase/firestore";
+
+import { db } from "../../../firebase";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { signOut } from "../../App-config-teste/user-slice";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +38,6 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   function signOutUser() {
-    console.log("Clicou para Deslogar");
     dispatch(signOut());
     navigate("/");
   }
@@ -34,9 +48,9 @@ const NavBar = () => {
 
   // Simulação de resultados de busca
   const users = [
-    { id: 1, name: "João Silva", about: "Desenvolvedor Frontend" },
-    { id: 2, name: "Maria Souza", about: "Designer Gráfico" },
-    { id: 3, name: "Pedro Oliveira", about: "Engenheiro de Software" },
+    { id: "15FyyOaz7VWOhtRiDAX8", name: "João Silva", description: "Desenvolvedor Frontend", skills_tags : ["Música", "Fitness", "Programação"], photoURL: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50", connections: ["1", "2"]},
+    { id: "VWlQZ1y89vRw7tPYBbkZ", name: "Maria Souza", description: "Designer Gráfico", skills_tags : ["Saúde", "Marketing", "Ensino básico"], photoURL: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50", connections: ["1", "4", "4", "4", "4"]},
+    { id: "WpCV7MLcVfrriTdLJtlG", name: "Pedro Oliveira", description: "Engenheiro de Software", skills_tags : ["Marketing", "Carro", "Moda"], photoURL: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50", connections: ["1", "3"]},
   ];
 
   const handleSearch = (e) => {
@@ -54,83 +68,112 @@ const NavBar = () => {
     }
   };
 
+  const handleAddConnection = async (user) => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = storedUser?.id;
+  
+    try {
+      const senderRef = doc(db, "users", userId);
+      const senderDoc = await getDoc(senderRef);
+  
+      if (senderDoc.exists()) {
+        const senderData = senderDoc.data();
+        const updatedConnectionSend = [...(senderData.connections_send || []), user];
+        await updateDoc(senderRef, { connections_send: updatedConnectionSend });
+      }
+  
+      const receiverRef = doc(db, "users", user.id);
+      const receiverDoc = await getDoc(receiverRef);
+  
+      if (receiverDoc.exists()) {
+        const receiverData = receiverDoc.data();
+        const updatedConnectionReceived = [...(receiverData.connections_received || []), storedUser];
+        await updateDoc(receiverRef, { connections_received: updatedConnectionReceived });
+      }
+      
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding connection:", error);
+    }
+  };
+
   return (
-    <div className="header">
-      <div className="box_logo">
-        <img src="Images/logo.svg" alt="Logo da Aplicação" />
-      </div>
-      <div className="box_icons_navigation">
-        <ul>
-          <li>
-            <a href="/feed">
-              <FaRss /> <span>Feed</span>
-            </a>
-          </li>
-          <li>
-            <a href="/rede">
-              <FiUsers /> <span>Rede</span>
-            </a>
-          </li>
-          <li>
-            <a href="/conexao">
-              <BsSuitcaseLg /> <span>Conexões</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <BiComment /> <span>Chat</span>
-            </a>
-          </li>
-          <li>
-            <a href="/algoritmo">
-              <FiBook /> <span>Algoritmo</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div className="box_search">
-        <label htmlFor="search">
-          <FaSistrix />
-        </label>
-        <input
-          type="text"
-          placeholder="Search"
-          id="search"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </div>
-      <div className="box_account">
-        <div className="box_profile_image" onClick={handleProfileClick}>
-          <img
-            src={
-              user?.photoURL ? user.photoURL : "src/assets/profile_image.png"
-            }
-            alt="Foto de Perfil"
+    <>
+      <div className="header">
+        <div className="box_logo">
+          <img src="Images/logo.svg" alt="Logo da Aplicação" />
+        </div>
+        <div className="box_icons_navigation">
+          <ul>
+            <li>
+              <a onClick={() => navigate("/feed")}>
+                <FaRss /> <span>Feed</span>
+              </a>
+            </li>
+            <li>
+              <a onClick={() => navigate("/rede")}>
+                <FiUsers /> <span>Rede</span>
+              </a>
+            </li>
+            <li>
+              <a onClick={() => navigate("/conexoes")}>
+                <BsSuitcaseLg /> <span>Conexões</span>
+              </a>
+            </li>
+            <li>
+              <a onClick={() => navigate("/chat")}>
+                <BiComment /> <span>Chat</span>
+              </a>
+            </li>
+            <li>
+              <a onClick={() => navigate("/algortimo")}>
+                <FiBook /> <span>Algoritmo</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="box_search">
+          <label htmlFor="search">
+            <FaSistrix />
+          </label>
+          <input
+            type="text"
+            placeholder="Search"
+            id="search"
+            value={searchTerm}
+            onChange={handleSearch}
           />
         </div>
-        <div className="box_accounts_info">
-          <div className="box_info_name">
-            <h2 className="profile_name" onClick={handleProfileClick}>
-              {(user && user.displayName) || user?.name}
-            </h2>
+        <div className="box_account">
+          <div className="box_profile_image" onClick={handleProfileClick}>
+            <img
+              src={
+                user?.photoURL ? user.photoURL : "src/assets/profile_image.png"
+              }
+              alt="Foto de Perfil"
+            />
           </div>
-          <div className="box_info_views">
-            <p className="views_today">367 Conexões</p>
-            <span className="new_followers">
-              +32 <MdArrowOutward />
-            </span>
+          <div className="box_accounts_info">
+            <div className="box_info_name">
+              <h2 className="profile_name">
+                {(user && user.displayName) || user?.name}
+              </h2>
+            </div>
+            <div className="box_info_views">
+              <p className="views_today">{user.connections.length} Conexões</p>
+              {/* <span className="new_followers">
+                +32 <MdArrowOutward />
+              </span> */}
+            </div>
           </div>
         </div>
+        <div className="box_logout">
+          <button className="btn_logout" type="button" onClick={signOutUser}>
+            <IoIosLogOut />
+            <span>Logout</span>
+          </button>
+        </div>
       </div>
-      <div className="box_logout">
-        <button className="btn_logout" type="button" onClick={signOutUser}>
-          <IoIosLogOut />
-          <span>Logout</span>
-        </button>
-      </div>
-
-      {/* Modal de Resultados da Busca */}
       {showModal && (
         <div className="modal">
           <div className="modal-content">
@@ -138,10 +181,14 @@ const NavBar = () => {
             {searchResults.length > 0 ? (
               <ul>
                 {searchResults.map((user) => (
-                  <li key={user.id}>
-                    <h3>{user.name}</h3>
-                    <p>{user.about}</p>
-                  </li>
+                  <div style={{ display: "flex"}}>
+                    <li key={user.id} className="search-result-user" style={{ width: "100%"}}>
+                      <h3>{user.name}</h3>
+                      <p>{user.description}</p>
+                    </li>
+
+                    <button onClick={() => handleAddConnection(user)} className="contact-info-btn" style={{ marginBottom: "1.5rem", marginTop: "0"}}>Conectar</button>
+                  </div>
                 ))}
               </ul>
             ) : (
@@ -150,7 +197,7 @@ const NavBar = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
