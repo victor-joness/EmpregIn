@@ -1,6 +1,5 @@
 ﻿using EmpregIn.Models;
 using EmpregIn.Service;
-using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmpregIn.Controllers
@@ -18,50 +17,75 @@ namespace EmpregIn.Controllers
             _bfsService = bfsService;
         }
 
-        [HttpGet("searchbfs")]
-        public async Task<IActionResult> GetDistance(string startUid, string targetUid)
+        [HttpGet("busca")]
+        public async Task<IActionResult> GetUsersBySkillsTags(string idUsuarioLogado)
+        {
+            try
+            {
+                var usuariosRecomendados = await GetUsuariosRecomendados(idUsuarioLogado);
+
+                if (usuariosRecomendados.Count == 0)
+                {
+                    return NotFound("Nenhum usuário recomendado encontrado.");
+                }
+
+                return Ok(usuariosRecomendados);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+
+        private async Task<List<User>> GetUsuariosRecomendados(string idUsuarioLogado)
         {
             var allUsers = await LoadAllUsersFromFirebase();
 
-            if (!allUsers.ContainsKey(startUid) || !allUsers.ContainsKey(targetUid))
+            if (!allUsers.ContainsKey(idUsuarioLogado))
             {
-                return NotFound("Usuário não encontrado.");
+                throw new Exception("Usuário logado não encontrado.");
             }
 
-            var startUser = allUsers[startUid];
-            var targetUser = allUsers[targetUid];
+            var usuarioLogado = allUsers[idUsuarioLogado];
+            var usuariosConectados = usuarioLogado.Connections.Select(u => u.Uid).ToHashSet();
 
-            int distance = _bfsService.GetMinimumDistance(startUser, targetUser, allUsers);
+            var usuariosRecomendados = allUsers.Values
+                .Where(user => user.Uid != idUsuarioLogado && !usuariosConectados.Contains(user.Uid)) 
+                .Select(user => new
+                {
+                    User = user,
+                    MatchingSkills = CarcularProximidadePorSkillsTags(user, usuarioLogado)
+                })
+                .OrderByDescending(u => u.MatchingSkills)
+                .Select(u => u.User)
+                .ToList();
 
-            if (distance == -1)
-            {
-                return NotFound("Caminho entre os usuários não encontrado.");
-            }
-
-            return Ok(new { distance });
+            return usuariosRecomendados;
         }
+
 
         private async Task<Dictionary<string, User>> LoadAllUsersFromFirebase()
         {
-            // Cria um dicionário para armazenar os usuários carregados
             var usersDict = new Dictionary<string, User>();
 
-            // Obtém o FirestoreDb do serviço Firebase
             var db = _firebaseService.GetFirestoreDb();
             var usersRef = db.Collection("users");
 
-            // Obtém todos os documentos da coleção "users"
             var snapshot = await usersRef.GetSnapshotAsync();
 
             foreach (var document in snapshot.Documents)
             {
                 if (document.Exists)
                 {
+                    var connectionsMap = document.GetValue<List<Dictionary<string, object>>>("connections");
+                    var connectionsReceivedMap = document.GetValue<List<Dictionary<string, object>>>("connections_received");
+                    var connectionsSendMap = document.GetValue<List<Dictionary<string, object>>>("connections_send");
+
                     User user = new User
                     {
-                        Connections = document.GetValue<List<User>>("connections"),
-                        ConnectionsReceived = document.GetValue<List<User>>("connections_received"),
-                        ConnectionsSend = document.GetValue<List<User>>("connections_send"),
+                        Connections = ConvertMapToUsers(connectionsMap),
+                        ConnectionsReceived = ConvertMapToUsers(connectionsReceivedMap),
+                        ConnectionsSend = ConvertMapToUsers(connectionsSendMap),
                         CurrentPosition = document.GetValue<string>("current_position"),
                         Description = document.GetValue<string>("description"),
                         Email = document.GetValue<string>("email"),
@@ -79,7 +103,33 @@ namespace EmpregIn.Controllers
 
             return usersDict;
         }
+        private int CarcularProximidadePorSkillsTags(User user, User loggedInUser)
+        {
+            var qtdSkillsIguais = user.SkillsTags.Intersect(loggedInUser.SkillsTags).Count();
+            return qtdSkillsIguais;
+        }
+
+        private List<User> ConvertMapToUsers(List<Dictionary<string, object>> maps)
+        {
+            var usersList = new List<User>();
+
+            if (maps != null)
+            {
+                foreach (var map in maps)
+                {
+                    var skillTags = ((List<object>)map["skills_tags"])
+                            .Select(skill => skill.ToString())
+                            .ToList();
+
+                    usersList.Add(new User
+                    {
+                        Uid = map["id"].ToString(),
+                        SkillsTags = skillTags,
+                    });
+                }
+            }
+
+            return usersList;
+        }
     }
-
-
 }
