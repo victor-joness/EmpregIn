@@ -58,7 +58,7 @@ const NavBar = () => {
             </a>
           </li>
           <li>
-            <a href="/algortimo">
+            <a href="/algoritmo">
               <FiBook /> <span>Algoritmo</span>
             </a>
           </li>
