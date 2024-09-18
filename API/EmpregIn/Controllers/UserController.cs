@@ -92,21 +92,21 @@ namespace EmpregIn.Controllers
                         Connections = MapperObjects.ConvertMapToUsers(connectionsMap),
                         ConnectionsReceived = MapperObjects.ConvertMapToUsers(connectionsReceivedMap),
                         ConnectionsSend = MapperObjects.ConvertMapToUsers(connectionsSendMap),
-                        CurrentPosition = document.GetValue<string>("current_position"),
-                        Description = document.GetValue<string>("description"),
+                        CurrentPosition = document.ContainsField("current_position") ? document.GetValue<string>("current_position") : null,
+                        Description = document.ContainsField("description") ? document.GetValue<string>("description") : null,
                         Education = MapperObjects.ConvertMapToFormacao(educationMap),
                         Experience = MapperObjects.ConvertMapToExperiencia(experienceMap),
                         Hability = MapperObjects.ConvertMapToHability(habilityMap),
-                        Email = document.GetValue<string>("email"),
+                        Email = document.ContainsField("email") ? document.GetValue<string>("email") : null,
                         Id = document.Id,
-                        Locality = document.GetValue<string>("locality"),
-                        Name = document.GetValue<string>("name"),
-                        PhotoBanner = document.GetValue<string>("photoBanner"),
-                        PhotoURL = document.GetValue<string>("photoURL"),
-                        Proficiency = document.GetValue<string>("proficiency"),
+                        Locality = document.ContainsField("locality") ? document.GetValue<string>("locality") : null,
+                        Name = document.ContainsField("name") ? document.GetValue<string>("name") : null,
+                        PhotoBanner = document.ContainsField("photoBanner") ? document.GetValue<string>("photoBanner") : null,
+                        PhotoURL = document.ContainsField("photoURL") ? document.GetValue<string>("photoURL") : null,
+                        Proficiency = document.ContainsField("proficiency") ? document.GetValue<string>("proficiency") : null,
                         Projects = MapperObjects.ConvertMapToProject(projectsMap),
-                        Qualification = document.GetValue<string>("qualification"),
-                        Skills_Tags = document.GetValue<List<string>>("skills_tags")
+                        Qualification = document.ContainsField("qualification") ? document.GetValue<string>("qualification") : null,
+                        Skills_Tags = document.ContainsField("skills_tags") ? document.GetValue<List<string>>("skills_tags") : new List<string>()
                     };
 
                     usersDict[document.Id] = user;
