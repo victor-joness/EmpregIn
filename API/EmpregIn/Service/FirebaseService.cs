@@ -11,8 +11,6 @@ namespace EmpregIn.Service
 
         public FirebaseService()
         {
-            string pathToServiceAccountKey = @"C:/Credencial/empregin-c82cb-firebase-adminsdk-t6hdk-b9d5c899d9.json";
-
             try
             {
                 _firestoreDb = FirestoreDb.Create("empregin-c82cb");
