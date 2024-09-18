@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FirebaseService>();
 
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"Credentials/empregin-c82cb-firebase-adminsdk-t6hdk-b9d5c899d9.json");
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:/Credencial/empregin-c82cb-firebase-adminsdk-t6hdk-959905b6c6.json");
 builder.Services.AddSingleton(FirebaseApp.Create());
 
 var app = builder.Build();

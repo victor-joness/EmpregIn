@@ -45,10 +45,10 @@ namespace EmpregIn.Controllers
             }
 
             var usuarioLogado = allUsers[idUsuarioLogado];
-            var usuariosConectados = usuarioLogado.Connections.Select(u => u.Uid).ToHashSet();
+            var usuariosConectados = usuarioLogado.Connections.Select(u => u.Id).ToHashSet();
 
             var usuariosRecomendados = allUsers.Values
-                .Where(user => user.Uid != idUsuarioLogado && !usuariosConectados.Contains(user.Uid)) 
+                .Where(user => user.Id != idUsuarioLogado && !usuariosConectados.Contains(user.Id)) 
                 .Select(user => new
                 {
                     User = user,
@@ -87,12 +87,12 @@ namespace EmpregIn.Controllers
                         CurrentPosition = document.GetValue<string>("current_position"),
                         Description = document.GetValue<string>("description"),
                         Email = document.GetValue<string>("email"),
-                        Uid = document.Id,
+                        Id = document.Id,
                         Locality = document.GetValue<string>("locality"),
                         Name = document.GetValue<string>("name"),
                         PhotoURL = document.GetValue<string>("photoURL"),
                         Qualification = document.GetValue<string>("qualification"),
-                        SkillsTags = document.GetValue<List<string>>("skills_tags")
+                        Skills_Tags = document.GetValue<List<string>>("skills_tags")
                     };
 
                     usersDict[document.Id] = user;
@@ -103,7 +103,7 @@ namespace EmpregIn.Controllers
         }
         private int CarcularProximidadePorSkillsTags(User user, User loggedInUser)
         {
-            var qtdSkillsIguais = user.SkillsTags.Intersect(loggedInUser.SkillsTags).Count();
+            var qtdSkillsIguais = user.Skills_Tags.Intersect(loggedInUser.Skills_Tags).Count();
             return qtdSkillsIguais;
         }
 
@@ -121,8 +121,8 @@ namespace EmpregIn.Controllers
 
                     usersList.Add(new User
                     {
-                        Uid = map["id"].ToString(),
-                        SkillsTags = skillTags,
+                        Id = map["id"].ToString(),
+                        Skills_Tags = skillTags
                     });
                 }
             }
