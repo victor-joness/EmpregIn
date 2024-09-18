@@ -1,5 +1,6 @@
 ﻿using EmpregIn.Models;
 using EmpregIn.Service;
+using EmpregIn.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmpregIn.Controllers
@@ -81,19 +82,29 @@ namespace EmpregIn.Controllers
                     var connectionsMap = document.GetValue<List<Dictionary<string, object>>>("connections");
                     var connectionsReceivedMap = document.GetValue<List<Dictionary<string, object>>>("connections_received");
                     var connectionsSendMap = document.GetValue<List<Dictionary<string, object>>>("connections_send");
+                    var educationMap = document.GetValue<List<Dictionary<string, object>>>("education");
+                    var experienceMap = document.GetValue<List<Dictionary<string, object>>>("experience");
+                    var habilityMap = document.GetValue<List<Dictionary<string, object>>>("hability");
+                    var projectsMap = document.GetValue<List<Dictionary<string, object>>>("projects");
 
                     User user = new User
                     {
-                        Connections = ConvertMapToUsers(connectionsMap),
-                        ConnectionsReceived = ConvertMapToUsers(connectionsReceivedMap),
-                        ConnectionsSend = ConvertMapToUsers(connectionsSendMap),
+                        Connections = MapperObjects.ConvertMapToUsers(connectionsMap),
+                        ConnectionsReceived = MapperObjects.ConvertMapToUsers(connectionsReceivedMap),
+                        ConnectionsSend = MapperObjects.ConvertMapToUsers(connectionsSendMap),
                         CurrentPosition = document.GetValue<string>("current_position"),
                         Description = document.GetValue<string>("description"),
+                        Education = MapperObjects.ConvertMapToFormacao(educationMap),
+                        Experience = MapperObjects.ConvertMapToExperiencia(experienceMap),
+                        Hability = MapperObjects.ConvertMapToHability(habilityMap),
                         Email = document.GetValue<string>("email"),
                         Id = document.Id,
                         Locality = document.GetValue<string>("locality"),
                         Name = document.GetValue<string>("name"),
+                        PhotoBanner = document.GetValue<string>("photoBanner"),
                         PhotoURL = document.GetValue<string>("photoURL"),
+                        Proficiency = document.GetValue<string>("proficiency"),
+                        Projects = MapperObjects.ConvertMapToProject(projectsMap),
                         Qualification = document.GetValue<string>("qualification"),
                         Skills_Tags = document.GetValue<List<string>>("skills_tags")
                     };
@@ -108,29 +119,6 @@ namespace EmpregIn.Controllers
         {
             var qtdSkillsIguais = user.Skills_Tags.Intersect(loggedInUser.Skills_Tags).Count();
             return qtdSkillsIguais;
-        }
-
-        private List<User> ConvertMapToUsers(List<Dictionary<string, object>> maps)
-        {
-            var usersList = new List<User>();
-
-            if (maps != null)
-            {
-                foreach (var map in maps)
-                {
-                    var skillTags = ((List<object>)map["skills_tags"])
-                            .Select(skill => skill.ToString())
-                            .ToList();
-
-                    usersList.Add(new User
-                    {
-                        Id = map["id"].ToString(),
-                        Skills_Tags = skillTags
-                    });
-                }
-            }
-
-            return usersList;
         }
     }
 }

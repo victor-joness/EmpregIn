@@ -1,7 +1,5 @@
 ﻿using FirebaseAdmin.Auth;
-using FirebaseAdmin;
 using Google.Cloud.Firestore;
-using Google.Apis.Auth.OAuth2;
 
 namespace EmpregIn.Service
 {
@@ -23,10 +21,5 @@ namespace EmpregIn.Service
         }
 
         public FirestoreDb GetFirestoreDb() => _firestoreDb;
-
-        public async Task<UserRecord> GetUserAsync(string uid)
-        {
-            return await FirebaseAuth.DefaultInstance.GetUserAsync(uid);
-        }
     }
 }
