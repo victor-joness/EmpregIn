@@ -46,9 +46,12 @@ namespace EmpregIn.Controllers
 
             var usuarioLogado = allUsers[idUsuarioLogado];
             var usuariosConectados = usuarioLogado.Connections.Select(u => u.Id).ToHashSet();
+            var usuariosConexaoRecebida = usuarioLogado.ConnectionsReceived.Select(u => u.Id).ToHashSet();
+            var usuariosConexaoEnviada = usuarioLogado.ConnectionsSend.Select(u => u.Id).ToHashSet();
+
 
             var usuariosRecomendados = allUsers.Values
-                .Where(user => user.Id != idUsuarioLogado && !usuariosConectados.Contains(user.Id)) 
+                .Where(user => user.Id != idUsuarioLogado && !usuariosConectados.Contains(user.Id) && !usuariosConexaoRecebida.Contains(user.Id) && !usuariosConexaoEnviada.Contains(user.Id)) 
                 .Select(user => new
                 {
                     User = user,
