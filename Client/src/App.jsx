@@ -28,18 +28,20 @@ function App() {
       dispatch(verifyAuthAndFetchUser());
     }
 
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    /* const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(signIn(user));
       }
-    });
+    }); */
 
-    return () => {
+    /* return () => {
       unsubscribeAuth();
-    };
+    }; */
   }, [dispatch]);
 
-
+  /*login = 16 requests em 5 minutos, 22 em 8 minutos, 25 em 10 minutos */
+  /*algortimo = 2 request*/
+  /*Rodando tudo = */
   return (
     <div className="app">
       <BrowserRouter>

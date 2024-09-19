@@ -76,7 +76,7 @@ export const registerUser = createAsyncThunk(
       photoURL: user.photoURL,
       photoBanner: user.photoURL,
       locality: "",
-      password: "",
+      password: user.password,
       qualification: "",
       skills_tags: [user.interest],
       education: [],
@@ -88,8 +88,6 @@ export const registerUser = createAsyncThunk(
 
     try {
       const docRef = await addDoc(collection(db, "users"), userBanco);
-
-      toast.success("Registro feito com sucesso!");
       userBanco.id = docRef.id;
 
       localStorage.setItem(
@@ -124,6 +122,12 @@ export const loginUser = createAsyncThunk(
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
 
+      // Verifique se a senha fornecida é igual à senha armazenada
+      if (user.password !== userData.password) {
+        throw new Error("Senha incorreta");
+      }
+
+      // Armazene os dados do usuário no localStorage
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -307,6 +311,9 @@ const UserSlice = createSlice({
         state.loginError = action.payload;
         state.loading = false;
         toast.error("Erro ao fazer login");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000)
       })
       .addCase(verifyAuthAndFetchUser.pending, (state) => {
         state.loading = true;

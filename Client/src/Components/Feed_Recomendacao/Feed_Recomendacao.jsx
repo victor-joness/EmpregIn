@@ -67,6 +67,7 @@ const Feed_Recomendacao = (props) => {
       const localStorageUser = JSON.parse(localStorage.getItem('user')) || {};
       localStorageUser.skills_tags = [...(localStorageUser.skills_tags || []), interest];
       localStorage.setItem('user', JSON.stringify(localStorageUser));
+      localStorage.removeItem('Data');
 
       toast.success(`Interesse '${interest}' adicionado com sucesso!`);
     } catch (error) {

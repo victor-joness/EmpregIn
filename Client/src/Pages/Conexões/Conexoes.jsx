@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Conexoes.css";
 
-import NavBar from "../../Components/NavBar/Navbar";
 import Footer from "../../Components/Footer/Footer";
+import NavBar from "../../Components/NavBar/Navbar";
 import { useSelector } from "react-redux";
 
 const Conexoes = () => {

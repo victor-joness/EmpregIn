@@ -12,8 +12,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FirebaseService>();
 
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:/Credencial/empregin-c82cb-firebase-adminsdk-t6hdk-959905b6c6.json");
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\Victor Mesquita\Desktop\Repository\EmpregIn\API\EmpregIn\Credencial\empregin-c82cb-firebase-adminsdk-t6hdk-959905b6c6.json");
 builder.Services.AddSingleton(FirebaseApp.Create());
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5173")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -23,6 +34,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 

@@ -121,28 +121,63 @@ const Network = ({}) => {
         const userData = userSnap.data();
   
         const currentUserRef = doc(db, "users", currentUserId);
-  
         const currentUserSnap = await getDoc(currentUserRef);
         const currentUserData = currentUserSnap.data();
   
+        // Certifique-se de que connections e connections_received são arrays
         const receivedConnections = currentUserData.connections_received || [];
+        const currentConnections = currentUserData.connections || [];
+  
+        // Verifique se já existe conexão com o userId
+        const alreadyConnected = currentConnections.some(
+          
+          (connection) => connection.id === userData.id
+        );
+  
+        // Encontre a conexão na lista de connections_received
         const connectionToRemove = receivedConnections.find(
           (connection) => connection.id === userId
         );
+
+        if (alreadyConnected) {
+          toast("Você já está conectado com essa pessoa!");
   
+          if (connectionToRemove) {
+            // Remover manualmente a conexão da lista de connections_received
+            const updatedReceivedConnections = receivedConnections.filter(
+              (connection) => connection.id !== userId
+            );
+  
+            // Atualiza a lista de conexões recebidas sem arrayRemove
+            await updateDoc(currentUserRef, {
+              connections_received: updatedReceivedConnections
+            });
+          }
+  
+          return; // Não continua com a aceitação, pois já estão conectados
+        }
+  
+        // Se a conexão ainda não foi aceita, aceita e remove da lista de recebidos
         if (connectionToRemove) {
+          const updatedReceivedConnections = receivedConnections.filter(
+            (connection) => connection.id !== userId
+          );
+  
           await updateDoc(currentUserRef, {
-            connections: arrayUnion(userData),
-            connections_received: arrayRemove(connectionToRemove)
-          });
-
-          await updateDoc(userRef, {
-            connections: arrayUnion(currentUserData),
-            connections_send: arrayRemove(currentUserData)
+            connections: [...currentConnections, userData], // Adiciona a nova conexão
+            connections_received: updatedReceivedConnections // Remove da lista de recebidos
           });
   
-          toast("Conexão aceita!");
-
+          const userConnections = userData.connections || [];
+          await updateDoc(userRef, {
+            connections: [...userConnections, currentUserData], // Adiciona a conexão ao outro usuário
+            connections_send: userData.connections_send.filter(
+              (conn) => conn.id !== currentUserId
+            ) // Remove da lista de enviados
+          });
+  
+          toast.success("Conexão aceita!");
+  
           setTimeout(() => {
             window.location.reload();
           }, 2000);
@@ -160,12 +195,28 @@ const Network = ({}) => {
   const HandleRejectConnection = async (userId, currentUserId) => {
     try {
       const currentUserRef = doc(db, "users", currentUserId);
+      
+      // Obter o documento atual
+      const currentUserDoc = await getDoc(currentUserRef);
+      
+      if (currentUserDoc.exists()) {
+        const connectionsReceived = currentUserDoc.data().connections_received || [];
+        
+        // Remover o userId da lista de connections_received
+        const updatedConnections = connectionsReceived.filter(id => id == userId);
+        // Atualizar o documento com a nova lista
+        await updateDoc(currentUserRef, {
+          connections_received: updatedConnections,
+        });
+  
+        toast("Conexão rejeitada!");
 
-      await updateDoc(currentUserRef, {
-        connections_received: arrayRemove(userId),
-      });
-
-      toast("Conexão rejeitada!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        console.log("Usuário não encontrado.");
+      }
     } catch (error) {
       console.error("Erro ao rejeitar a conexão:", error);
     }
@@ -297,7 +348,7 @@ const Network = ({}) => {
                             className="network_users_btn"
                             onClick={() =>
                               HandleRejectConnection(
-                                userConnection.id,
+                                userConnection.uid,
                                 user.uid
                               )
                             }
