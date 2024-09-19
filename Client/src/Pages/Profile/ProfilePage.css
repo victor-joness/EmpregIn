@@ -523,24 +523,43 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  width: 400px;
+  width: 500px;
   max-width: 100%;
   position: relative;
 }
 
 .contact-entry {
   margin-bottom: 10px;
+  margin-top: 15px;
+  font-size: 15px;
 }
 
 .contact-form-buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center; /* Alinha os botões verticalmente */
+  margin-top: 18px; /* Adiciona um espaço acima dos botões */
 }
 
-.add-contact-btn {
-  margin-top: 10px;
+.add-contact-btn, .save-btn {
+  background-color: #067d71; /* Botão verde */
+  color: white; /* Texto branco */
+  border: none; /* Sem borda */
+  padding: 7px 11px; /* Espaçamento interno */
+  cursor: pointer; /* Cursor de ponteiro */
+  border-radius: 5px;
 }
 
+.save-btn {
+  margin-left: 160px; /* Espaço entre os botões Salvar e Adicionar */
+}
+
+.cancel-btn {
+  border: 1px solid #ccc; /* Estilo padrão para o botão Cancelar */
+  padding: 7px 11px; /* Espaçamento interno */
+  cursor: pointer; /* Cursor de ponteiro */
+  border-radius: 5px;
+}
 .project-logo img {
   max-width: 60px; /* Largura máxima da imagem */
   height: auto; /* Mantém a proporção da altura */
@@ -551,4 +570,27 @@
   max-width: 60px;
   height: auto;
   object-fit: contain;
+}
+
+.about-text.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.about-text.expanded {
+  display: block; /* Mostra o texto completo */
+}
+
+.see-more-btn {
+  background-color: transparent;
+  border: none;
+  color: #067d71;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.see-more-btn:hover {
+  color: #40b189;
 }

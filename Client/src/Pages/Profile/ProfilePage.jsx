@@ -521,6 +521,14 @@ const ProfilePage = () => {
     setShowContactForm(false);
   };
 
+    // Estado para controlar se o texto completo está sendo exibido ou não
+    const [showFullText, setShowFullText] = useState(false);
+  
+    // Função para alternar entre mostrar ou ocultar o texto completo
+    const toggleShowFullText = () => {
+      setShowFullText(!showFullText);
+    };
+
   return (
     <div className="profile-container">
       <NavBar />
@@ -563,14 +571,20 @@ const ProfilePage = () => {
         </header>
 
         <section className="about-section">
-          <h2>Sobre</h2>
-          <p>{aboutText}</p>
-          <div className="see-more">
-            <a href="#" className="see-more">
-              VEJA MAIS
-            </a>
-          </div>
-        </section>
+        <h2>Sobre</h2>
+
+        {/* Condicional para mostrar o texto completo ou cortado */}
+        <p className={`about-text ${showFullText ? "expanded" : "collapsed"}`}>
+          {aboutText}
+        </p>
+
+        {/* Botão para expandir ou recolher o texto */}
+        <div className="see-more">
+          <button onClick={toggleShowFullText} className="see-more-btn">
+        <b>    {showFullText ? "Ver Menos" : "Saber Mais"}</b>
+          </button>
+        </div>
+      </section>
 
         <section className="projects-section">
           <div className="section-header">
@@ -892,40 +906,43 @@ const ProfilePage = () => {
           </div>
         )}
 
-        {showContactForm && (
-          <div className="contact-form-overlay">
-            <div className="contact-form-content">
-              <h1>Informações de Contato</h1>
-              {contacts.map((contact, index) => (
-                <div className="contact-entry" key={index}>
-                  <label htmlFor={`name-${index}`}>Nome:</label>
-                  <input
-                    type="text"
-                    id={`name-${index}`}
-                    name="name"
-                    value={contact.name}
-                    onChange={(event) => handleChangeContact(index, event)}
-                  />
-                  <label htmlFor={`link-${index}`}>Link:</label>
-                  <input
-                    type="text"
-                    id={`link-${index}`}
-                    name="link"
-                    value={contact.link}
-                    onChange={(event) => handleChangeContact(index, event)}
-                  />
-                </div>
-              ))}
-              <button className="add-contact-btn" onClick={handleAddContact}>
-                Adicionar Outro Contato
-              </button>
-              <div className="contact-form-buttons">
-                <button onClick={handleSaveContacts}>Salvar</button>
-                <button onClick={handleCancelContacts}>Cancelar</button>
-              </div>
-            </div>
-          </div>
-        )}
+{showContactForm && (
+  <div className="contact-form-overlay">
+    <div className="contact-form-content">
+      <h1>Informações de Contato</h1>
+      {contacts.map((contact, index) => (
+        <div className="contact-entry" key={index}>
+          <label htmlFor={`name-${index}`}>Nome:</label>
+          <input
+            type="text"
+            id={`name-${index}`}
+            name="name"
+            value={contact.name}
+            onChange={(event) => handleChangeContact(index, event)}
+          />
+          <label htmlFor={`link-${index}`}>Link:</label>
+          <input
+            type="text"
+            id={`link-${index}`}
+            name="link"
+            value={contact.link}
+            onChange={(event) => handleChangeContact(index, event)}
+          />
+        </div>
+      ))}
+      <div className="contact-form-buttons">
+        <button className="add-contact-btn" onClick={handleAddContact}>
+          Adicionar Contato
+        </button>
+        <button className="save-btn" onClick={handleSaveContacts}>
+          Salvar
+        </button>
+        <button className="cancel-btn" onClick={handleCancelContacts}>Cancelar</button>
+      </div>
+    </div>
+  </div>
+)}
+
 
         {isAddingExperience && (
           <div className="modal-overlay">
