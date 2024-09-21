@@ -21,28 +21,35 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 Nesse projeto, fui capaz de:
 
-- Trabalhar com estado, componentes;
+- Trabalhar com estado, componentes, redux, react;
 - Fazer o uso e o estudo das seguintes bibliotecas Axios, Express, Yup, Formik, Cors, Charts.js, bcrypt, nodemon, React-Router-dom;
-- Uso do banco de dados MySql WorkBench
-- Feito alguns CRUDS
+- Uso do banco de dados Firebase;
+- Feito alguns CRUDS;
+- Utilização do algortimo de BFS para conexão entre os usuários;
 
 ## :memo: Funcionalidades: 
-- 1 Criação de conta;❌                           
-- 2 Login;❌                             
-- 3 Logout;❌                             
-- 4 Edição de conta; ❌                            
-- 5 Remoção de conta;❌                                      
-- 6 Buscar Usuario; ❌                                                                                
-- 7 Listagem de Usuario; ❌                                                                                          
+- 1 Criação de conta;✔️                           
+- 2 Login;✔️                             
+- 3 Logout✔️                             
+- 4 Edição de conta; ✔️                            
+- 5 Remoção de conta;✔️                                      
+- 6 Buscar Usuario; ✔️                                                                                
+- 7 Listagem de Usuario; ✔️
+- 8 Conexão com outros Usuários ✔️
+- 9 Página explicando o algoritmo ✔️
+- 10 Criação/Edição/Exclusão de Habilidades, Projetos, Experiências ✔️                                                                                          
   
-## 📝 Fotos do projeto                                                                         
+## 📝 Fotos do projeto 
+  Fotos finais do projeto.                                                        
+  -> https://github.com/victor-joness/EmpregIn/tree/main/Imagens%20do%20projeto%20finalizado                                      
+  Figma utilizado como base:                                    
   -> https://www.figma.com/file/rjaRzpBAfOXsg62sgJiuFb/LinkedIn-Redesign-UI-Kit-(Community)?type=design&mode=design&t=w6hY4gAulEWWyifC-0      
 
 ## 📝 Padrão arquitetural de desenvolvimento web                                                                                                    
   -> Escolhemos o padrão CQRS, Caso queira conhecer:                                                                                      
     - https://medium.com/@marcelomg21/cqrs-command-query-responsibility-segregation-em-uma-arquitetura-de-micro-servi%C3%A7os-71dcb687a8a9                                                                  
     - https://www.youtube.com/watch?v=cw0oVKCK4iU                                                                                          
-  -> Foto do Padrão:                                                                          
+    -> Foto do Padrão:                                                                          
     - https://github.com/victor-joness/EmpregIn/blob/main/Padr%C3%A3o%20arquitetural.png                                                                              
 
 ## 📝 Ajustes e melhorias
@@ -139,7 +146,28 @@ git clone https://github.com/victor-joness/EmpregIn
                 <br />
                 <sub><b>Samuel Lopes<sub><b>
             </a>
-        </td> 
+        </td>
+        <td align="center">
+            <a href="https://github.com/carlosedu757">
+                <img src="https://user-images.githubusercontent.com/85620625/195366186-541c980e-1aba-4d03-9da7-5e49e64b9d22.png" width="150px;" alt="Foto Samuel"/>
+                <br />
+                <sub><b>Carlos Eduardo<sub><b>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/LaercioMelo">
+                <img src="https://user-images.githubusercontent.com/85620625/195366186-541c980e-1aba-4d03-9da7-5e49e64b9d22.png" width="150px;" alt="Foto Samuel"/>
+                <br />
+                <sub><b>Laércio Melo<sub><b>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/MiguelFarias1">
+                <img src="https://user-images.githubusercontent.com/85620625/195366186-541c980e-1aba-4d03-9da7-5e49e64b9d22.png" width="150px;" alt="Foto Samuel"/>
+                <br />
+                <sub><b>Miguel Barbosa<sub><b>
+            </a>
+        </td>
     </tr>
 </table>
               
